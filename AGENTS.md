@@ -96,22 +96,25 @@ npm run version:major   # Sube la versión mayor (ej. 1.0.0 -> 2.0.0)
 
 ## 📝 6. Regla de Recomendación de Commits (Obligatoria)
 
+> 🚫 **PROHIBICIÓN ESTRICTA DE COMMITS AUTOMÁTICOS:**
+> El agente **NUNCA** debe ejecutar `git commit` ni `git push` bajo ningún concepto. El control del historial y la decisión de confirmar los cambios pertenece única y exclusivamente al usuario.
+>
 > **REGLA OBLIGATORIA PARA EL ASISTENTE:**
-> Al finalizar **CADA** cambio, refactorización o nueva característica, el agente **DEBE** recomendar al usuario el comando de Git Commit exacto a ejecutar.
+> Al finalizar **CADA** cambio, refactorización o nueva característica, el agente **SOLO DEBE MOSTRAR EL MENSAJE DE COMMIT** (sin comandos de consola como `git commit` ni `git add`).
 > 
-> El mensaje de commit debe seguir el formato **Conventional Commits**, estar redactado en **inglés** e incluir el **emoji** correspondiente.
+> El mensaje debe seguir el formato **Conventional Commits**, estar redactado en **inglés** e incluir el **emoji** correspondiente.
 
 ### Tabla de Tipos y Emojis de Commits:
-| Tipo | Emoji | Propósito | Ejemplo |
+| Tipo | Emoji | Propósito | Mensaje de Ejemplo |
 | :--- | :---: | :--- | :--- |
-| `feat` | ✨ | Nueva característica o funcionalidad | `git commit -m "✨ feat(scanner): add instant search filter by username"` |
-| `fix` | 🐛 | Corrección de errores o bugs | `git commit -m "🐛 fix(avatar): resolve 403 error on Instagram CDN images"` |
-| `security` | 🔒 | Mejoras de seguridad, anti-tampering o gitignore | `git commit -m "🔒 security(integrity): protect author footer with XOR cipher"` |
-| `refactor` | ♻️ | Refactorización de código sin alterar comportamiento | `git commit -m "♻️ refactor(components): migrate to Angular 18 control flow (@if, @for)"` |
-| `style` | 🎨 | Estilos, diseño, CSS, animaciones | `git commit -m "🎨 style(header): modernize floating launcher button position"` |
-| `docs` | 📝 | Documentación, README o GitHub Pages | `git commit -m "📝 docs(readme): add installation guide and GitHub Pages links"` |
-| `perf` | ⚡ | Mejoras de rendimiento o reducción de bundle | `git commit -m "⚡ perf(bundle): remove CommonModule to reduce dist size"` |
-| `chore` | 📦 | Tareas de mantenimiento, dependencias o SemVer | `git commit -m "📦 chore(release): bump version to 1.0.1 with SemVer script"` |
+| `feat` | ✨ | Nueva característica o funcionalidad | `✨ feat(scanner): add instant search filter by username` |
+| `fix` | 🐛 | Corrección de errores o bugs | `🐛 fix(avatar): resolve 403 error on Instagram CDN images` |
+| `security` | 🔒 | Mejoras de seguridad, anti-tampering o gitignore | `🔒 security(integrity): protect author footer with XOR cipher` |
+| `refactor` | ♻️ | Refactorización de código sin alterar comportamiento | `♻️ refactor(components): migrate to Angular 18 control flow (@if, @for)` |
+| `style` | 🎨 | Estilos, diseño, CSS, animaciones | `🎨 style(header): modernize floating launcher button position` |
+| `docs` | 📝 | Documentación, README o GitHub Pages | `📝 docs(readme): add installation guide and GitHub Pages links` |
+| `perf` | ⚡ | Mejoras de rendimiento o reducción de bundle | `⚡ perf(bundle): remove CommonModule to reduce dist size` |
+| `chore` | 📦 | Tareas de mantenimiento, dependencias o SemVer | `📦 chore(release): bump version to 1.0.1 with SemVer script` |
 
 ---
 
@@ -120,4 +123,4 @@ Antes de dar por completado cualquier requerimiento:
 1. Ejecutar `npm run build` y asegurar que termine con código 0 y sin advertencias de compilación.
 2. Verificar que no se hayan introducido dependencias o archivos innecesarios.
 3. Asegurar que los cambios en archivos compilados queden reflejados en la carpeta `dist/`.
-4. Proporcionar la recomendación del commit correspondiente al usuario.
+4. Proporcionar únicamente el mensaje de commit sugerido (sin comandos).
