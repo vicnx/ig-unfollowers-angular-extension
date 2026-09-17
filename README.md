@@ -1,7 +1,6 @@
 # 📱 ¿Quién me dejó de seguir? — Instagram Unfollowers Extension
 
 [![GitHub Pages](https://img.shields.io/badge/Web%20Docs-GitHub%20Pages-blueviolet.svg)](https://vicnx.github.io/ig-unfollowers-angular-extension/)
-[![Version](https://img.shields.io/badge/version-1.1.0-informational.svg)](package.json)
 [![Releases](https://img.shields.io/github/v/release/vicnx/ig-unfollowers-angular-extension?color=blue&label=Versi%C3%B3n)](https://github.com/vicnx/ig-unfollowers-angular-extension/releases)
 [![Framework](https://img.shields.io/badge/Angular-18%20(Standalone%20%2B%20Signals)-dd0031.svg)](https://angular.dev)
 [![Manifest](https://img.shields.io/badge/Chrome%20Extension-Manifest%20V3-blue.svg)](https://developer.chrome.com/docs/extensions/mv3/)

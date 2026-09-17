@@ -33,4 +33,17 @@ export class ScannerControlsComponent {
     }
     return 'Auditoría finalizada';
   });
+
+  /**
+   * Tiempo estimado (en segundos) para dejar de seguir a los usuarios seleccionados.
+   * Se recalcula reactivamente cuando cambia la selección o los timings.
+   */
+  readonly estimatedUnfollowEta = computed(() =>
+    this.scanner.estimateUnfollowSeconds(this.scanner.selectedUsers().length)
+  );
+
+  /** Proxy del método estático para usarlo en el template. */
+  formatEta(secs: number): string {
+    return ScannerService.formatEta(secs);
+  }
 }

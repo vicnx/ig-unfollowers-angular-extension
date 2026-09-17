@@ -257,3 +257,37 @@
   50% { transform: scale(1.2); opacity: 1; }
   100% { transform: scale(0.95); opacity: 0.7; }
 }
+
+// ── ETA Countdown (durante unfollow) ────────────────────────────────────────
+.eta-countdown {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--ig-danger);
+  font-weight: 500;
+  animation: fadeIn 0.3s ease;
+
+  strong {
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+// ── Pill de ETA en el botón de unfollow ─────────────────────────────────────
+.unfollow-eta-pill {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: var(--ig-radius-full);
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

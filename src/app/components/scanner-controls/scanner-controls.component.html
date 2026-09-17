@@ -40,6 +40,17 @@
         <div class="percent-label">{{ scanner.percentage() }}%</div>
       </div>
 
+      <!-- Countdown ETA durante unfollow -->
+      @if (scanner.isUnfollowing() && scanner.unfollowEta() > 0) {
+        <div class="eta-countdown">
+          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <span>Tiempo restante: <strong>{{ formatEta(scanner.unfollowEta()) }}</strong></span>
+        </div>
+      }
+
       <!-- Barra de progreso con degradado Instagram -->
       <div class="progress-track">
         <div class="progress-bar" [style.width.%]="scanner.percentage()"></div>
@@ -107,7 +118,10 @@
             <line x1="18" y1="8" x2="23" y2="13"></line>
             <line x1="23" y1="8" x2="18" y2="13"></line>
           </svg>
-          Dejar de seguir ({{ scanner.selectedUsers().length }})
+          <span>Dejar de seguir ({{ scanner.selectedUsers().length }})</span>
+          <span class="unfollow-eta-pill">
+            ~{{ formatEta(estimatedUnfollowEta()) }}
+          </span>
         </button>
       </div>
     }

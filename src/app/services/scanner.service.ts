@@ -28,6 +28,8 @@ export class ScannerService {
   readonly selectedUsers = signal<UserNode[]>([]);
   readonly unfollowLog = signal<UnfollowLogEntry[]>([]);
   readonly isPaused = signal<boolean>(false);
+  /** Segundos restantes estimados para completar el unfollow. -1 = no calculado. */
+  readonly unfollowEta = signal<number>(-1);
   readonly toast = signal<{ show: boolean; text: string; type?: 'info' | 'warning' | 'success' | 'error' }>({
     show: false,
     text: '',
@@ -404,6 +406,27 @@ export class ScannerService {
   }
 
   // Unfollow execution
+
+  /**
+   * Calcula el tiempo estimado total (en segundos) para dejar de seguir N cuentas,
+   * teniendo en cuenta la pausa entre unfollows y las pausas largas cada 5 acciones.
+   */
+  estimateUnfollowSeconds(count: number): number {
+    const t = this.timings();
+    const delayBetween = t.timeBetweenUnfollows / 1000;
+    const longPause = t.timeToWaitAfterFiveUnfollows / 1000;
+    const longPauseCount = Math.floor((count - 1) / 5);
+    return Math.round(delayBetween * (count - 1) + longPause * longPauseCount);
+  }
+
+  /** Formatea segundos en "Xm Ys" o "Xs" legible. */
+  static formatEta(secs: number): string {
+    if (secs <= 0) return '0s';
+    const m = Math.floor(secs / 60);
+    const s = secs % 60;
+    return m > 0 ? `${m}m ${s}s` : `${s}s`;
+  }
+
   async startUnfollow(): Promise<void> {
     // Comprobación de seguridad e integridad del sistema
     const integrityCheck = this.integrity.validateExecutionIntegrity();
@@ -419,7 +442,8 @@ export class ScannerService {
     }
 
     if (this.isMockMode()) {
-      if (!confirm(`[MODO PRUEBA] ¿Deseas simular el proceso de unfollow para ${toUnfollow.length} cuenta(s) de prueba?`)) {
+      const etaSecs = Math.round(toUnfollow.length * 0.5);
+      if (!confirm(`[MODO PRUEBA] ¿Deseas simular el proceso de unfollow para ${toUnfollow.length} cuenta(s) de prueba?\nTiempo estimado: ~${ScannerService.formatEta(etaSecs)}`)) {
         return;
       }
 
@@ -427,6 +451,13 @@ export class ScannerService {
       this.percentage.set(0);
       this.unfollowLog.set([]);
       this.isPaused.set(false);
+      this.unfollowEta.set(etaSecs);
+
+      // Ticker de cuenta regresiva (mock)
+      const etaTicker = setInterval(() => {
+        const cur = this.unfollowEta();
+        if (cur > 0) this.unfollowEta.set(cur - 1);
+      }, 1000);
 
       let counter = 0;
       for (const user of toUnfollow) {
@@ -445,11 +476,15 @@ export class ScannerService {
         this.percentage.set(Math.round((counter / toUnfollow.length) * 100));
       }
 
+      clearInterval(etaTicker);
+      this.unfollowEta.set(0);
       this.showToast('🧪 Simulación de unfollow completada con éxito en modo prueba.', 'success');
       return;
     }
 
-    if (!confirm(`¿Estás seguro de que quieres dejar de seguir a ${toUnfollow.length} cuenta(s)? Esta acción no se puede deshacer.`)) {
+    const estimatedSecs = this.estimateUnfollowSeconds(toUnfollow.length);
+    const etaLabel = ScannerService.formatEta(estimatedSecs);
+    if (!confirm(`¿Estás seguro de que quieres dejar de seguir a ${toUnfollow.length} cuenta(s)?\n\n⏱ Tiempo estimado: ~${etaLabel}\n\nLas pausas anti-bloqueo están incluidas. Esta acción no se puede deshacer.`)) {
       return;
     }
 
@@ -457,6 +492,15 @@ export class ScannerService {
     this.percentage.set(0);
     this.unfollowLog.set([]);
     this.isPaused.set(false);
+    this.unfollowEta.set(estimatedSecs);
+
+    // Ticker de cuenta regresiva real (descuenta 1s/s, pausa si isPaused)
+    const etaTicker = setInterval(() => {
+      if (!this.isPaused()) {
+        const cur = this.unfollowEta();
+        if (cur > 0) this.unfollowEta.set(cur - 1);
+      }
+    }, 1000);
 
     const timings = this.timings();
     let counter = 0;
@@ -507,6 +551,8 @@ export class ScannerService {
       }
     }
 
+    clearInterval(etaTicker);
+    this.unfollowEta.set(0);
     this.showToast(`Proceso de unfollow completado.`, 'success');
   }
 

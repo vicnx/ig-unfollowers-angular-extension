@@ -111,15 +111,6 @@ if (cUrlMatch && cNickMatch && cFullMatch && cLabelMatch) {
   console.log(`✅ src/app/core/security/integrity.service.ts actualizado (Checksum: ${newChecksum})`);
 }
 
-// 5. README.md
-if (fs.existsSync(readmePath)) {
-  let readmeContent = fs.readFileSync(readmePath, 'utf8');
-  readmeContent = readmeContent.replace(
-    /img\.shields\.io\/badge\/version-[^-\s)]+-informational\.svg/,
-    `img.shields.io/badge/version-${newVersion}-informational.svg`
-  );
-  fs.writeFileSync(readmePath, readmeContent, 'utf8');
-  console.log('✅ README.md badge de versión actualizado');
-}
+// 5. README.md — El badge de versión usa GitHub Releases dinámicamente, no requiere actualización.
 
 console.log(`\n🎉 Versión ${newVersion} sincronizada exitosamente en todos los módulos.\n`);
