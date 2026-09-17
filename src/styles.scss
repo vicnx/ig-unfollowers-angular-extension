@@ -1,5 +1,4 @@
 /* Instagram Unfollowers - Design System (Instagram Theme: Dark & Light Modes) */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root, [data-theme="dark"] {
   --ig-bg: #000000;
@@ -95,7 +94,7 @@ html, body {
   overflow: hidden;
   background-color: var(--ig-bg);
   color: var(--ig-text-primary);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-size: 13px;
   line-height: 1.4;
   -webkit-font-smoothing: antialiased;
