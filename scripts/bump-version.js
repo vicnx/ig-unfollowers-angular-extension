@@ -22,6 +22,7 @@ const packageJsonPath = path.join(rootDir, 'package.json');
 const manifestJsonPath = path.join(rootDir, 'public', 'manifest.json');
 const versionConstPath = path.join(rootDir, 'src', 'app', 'constants', 'version.constants.ts');
 const integrityServicePath = path.join(rootDir, 'src', 'app', 'core', 'security', 'integrity.service.ts');
+const readmePath = path.join(rootDir, 'README.md');
 
 const arg = process.argv[2] || 'patch';
 
@@ -108,6 +109,17 @@ if (cUrlMatch && cNickMatch && cFullMatch && cLabelMatch) {
   );
   fs.writeFileSync(integrityServicePath, integrityCode, 'utf8');
   console.log(`✅ src/app/core/security/integrity.service.ts actualizado (Checksum: ${newChecksum})`);
+}
+
+// 5. README.md
+if (fs.existsSync(readmePath)) {
+  let readmeContent = fs.readFileSync(readmePath, 'utf8');
+  readmeContent = readmeContent.replace(
+    /img\.shields\.io\/badge\/version-[^-\s)]+-informational\.svg/,
+    `img.shields.io/badge/version-${newVersion}-informational.svg`
+  );
+  fs.writeFileSync(readmePath, readmeContent, 'utf8');
+  console.log('✅ README.md badge de versión actualizado');
 }
 
 console.log(`\n🎉 Versión ${newVersion} sincronizada exitosamente en todos los módulos.\n`);

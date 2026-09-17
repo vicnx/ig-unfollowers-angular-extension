@@ -82,6 +82,7 @@ La versión se define en:
 - `src/app/constants/version.constants.ts` (`APP_VERSION = '1.0.0'`)
 - `package.json` (`"version": "1.0.0"`)
 - `public/manifest.json` (`"version": "1.0.0"`)
+- `README.md` (Badge de versión oficial)
 
 ### 5.2 Scripts de Subida de Versión
 Para subir la versión de forma sincronizada y automática (incluyendo la actualización del checksum de seguridad):
