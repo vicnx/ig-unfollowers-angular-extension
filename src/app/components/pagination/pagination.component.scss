@@ -1,0 +1,80 @@
+.pagination-container {
+  padding: 10px 16px;
+  background: var(--ig-surface);
+  border-top: 1px solid var(--ig-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
+.select-toggles {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  .toggle-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    color: var(--ig-text-secondary);
+    font-weight: 500;
+    transition: color 0.15s ease;
+
+    &:hover {
+      color: #ffffff;
+    }
+
+    input {
+      width: 15px;
+      height: 15px;
+      border-radius: 3px;
+    }
+  }
+}
+
+.page-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 3px 8px;
+  border-radius: var(--ig-radius-full);
+  border: 1px solid var(--ig-border-light);
+
+  .page-btn {
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: var(--ig-text-secondary);
+    transition: all 0.15s ease;
+
+    &:hover:not(:disabled) {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.1);
+      transform: scale(1.1);
+    }
+
+    &:disabled {
+      opacity: 0.25;
+      cursor: not-allowed;
+    }
+  }
+
+  .page-info {
+    font-weight: 600;
+    color: var(--ig-text-primary);
+    min-width: 40px;
+    text-align: center;
+  }
+}
+
+.total-info {
+  color: var(--ig-text-tertiary);
+}

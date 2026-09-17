@@ -1,0 +1,132 @@
+.user-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--ig-surface);
+  border-radius: var(--ig-radius-md);
+  border: 1px solid var(--ig-border-light);
+  transition: all 0.15s ease;
+
+  &:hover {
+    background: var(--ig-surface-hover);
+    border-color: var(--ig-border);
+  }
+
+  &.selected {
+    background: rgba(0, 149, 246, 0.08);
+    border-color: rgba(0, 149, 246, 0.35);
+  }
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 2px;
+}
+
+.avatar-wrapper {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+  flex-shrink: 0;
+
+  .avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: var(--ig-radius-full);
+    object-fit: cover;
+    background: #262626;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .star-overlay {
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    font-size: 11px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+
+    &.starred {
+      opacity: 1;
+    }
+  }
+
+  &:hover .star-overlay {
+    opacity: 1;
+  }
+}
+
+.user-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  .username-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    .username {
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--ig-text-primary);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      &:hover {
+        text-decoration: underline;
+        color: var(--ig-blue);
+      }
+    }
+
+    .badge-verified {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .badge-private {
+      font-size: 9px;
+      font-weight: 600;
+      color: var(--ig-text-tertiary);
+      background: rgba(255, 255, 255, 0.06);
+      padding: 1px 5px;
+      border-radius: var(--ig-radius-sm);
+    }
+  }
+
+  .full-name {
+    font-size: 11px;
+    color: var(--ig-text-secondary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.whitelist-star-btn {
+  padding: 6px;
+  border-radius: var(--ig-radius-full);
+  color: var(--ig-text-tertiary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: var(--ig-gold);
+    background: rgba(255, 215, 0, 0.1);
+    transform: scale(1.1);
+  }
+
+  &.active {
+    color: var(--ig-gold);
+  }
+}

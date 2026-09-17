@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>¿Quién me dejó de seguir? — Extensión para Instagram</title>
+  <meta name="description" content="Guía oficial de instalación y uso de la extensión para Chrome de detección segura de no-seguidores en Instagram." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/x-icon" href="../public/favicon.ico" />
+</head>
+<body>
+
+  <!-- NAVEGACIÓN SUPERIOR -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#" class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+        </div>
+        <span class="brand-title">¿Quién me dejó de seguir?</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#descarga" class="nav-link">Descarga</a>
+        <a href="#instalacion" class="nav-link">Instalación</a>
+        <a href="#uso" class="nav-link">Modo de Uso</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+        <a href="https://github.com/vicnx/ig-unfollowers-angular-extension" target="_blank" rel="noopener noreferrer" class="btn-gh">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          GitHub
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO PRINCIPAL -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="badge-tag">
+        <span class="badge-dot"></span>
+        Angular 18 & Manifest V3 — 100% Client-Side
+      </div>
+
+      <h1>Descubre quién no te sigue en Instagram <span class="gradient-text">sin riesgos</span></h1>
+      <p>
+        Extensión de navegador que se integra de forma limpia en Instagram con un botón flotante y un panel Dark Mode. Sin introducir contraseñas y con pausas humanas anti-bloqueo.
+      </p>
+
+      <div class="hero-actions">
+        <a href="https://github.com/vicnx/ig-unfollowers-angular-extension/releases" target="_blank" rel="noopener noreferrer" class="btn-primary">
+          📥 Descargar Extensión (.zip)
+        </a>
+        <a href="#instalacion" class="btn-secondary">
+          📖 Ver Guía de Instalación
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="container">
+
+    <!-- SECCIÓN: CARACTERÍSTICAS -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-tag">Ventajas</div>
+        <h2 class="section-title">¿Por qué usar esta extensión?</h2>
+      </div>
+
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card-icon">🔒</div>
+          <h3>100% Segura y Privada</h3>
+          <p>Se ejecuta directamente en tu navegador aprovechando tu sesión activa de Instagram. Jamás te pedirá tus contraseñas ni enviará datos a servidores externos.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">⚡</div>
+          <h3>Pausas Anti-Bloqueo</h3>
+          <p>Emula la cadencia de navegación humana con pausas de seguridad cada 5 peticiones para proteger tu cuenta de advertencias de acción por parte de Meta.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">⭐</div>
+          <h3>Lista Blanca Protegida</h3>
+          <p>Marca a tus amigos o cuentas esenciales con una estrella. Quedarán protegidas para que nunca las dejes de seguir por error, con copias de seguridad en JSON.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: DESCARGA -->
+    <section class="section" id="descarga">
+      <div class="section-header">
+        <div class="section-tag">Paso 1</div>
+        <h2 class="section-title">Cómo Descargar la Extensión</h2>
+        <p class="section-subtitle">Puedes elegir entre descargar el paquete precompilado o compilarlo tú mismo desde el código fuente.</p>
+      </div>
+
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-badge">A</div>
+          <h3>Opción A: Descargar archivo ZIP listo para usar (Recomendado)</h3>
+          <p>Descarga la última versión empaquetada desde la sección de lanzamientos (Releases) de GitHub:</p>
+          <a href="https://github.com/vicnx/ig-unfollowers-angular-extension/releases" target="_blank" rel="noopener noreferrer" class="btn-primary">
+            📦 Ir a GitHub Releases
+          </a>
+
+          <!-- Espacio pendiente para captura de pantalla de releases -->
+          <div class="image-placeholder">
+            <span class="image-placeholder-icon">📷</span>
+            <span class="image-placeholder-title">[IMAGEN PENDIENTE: Sección de Releases en GitHub descargando el .zip]</span>
+            <span class="image-placeholder-desc">Ruta recomendada para la captura: <code>docs/assets/images/step_releases.png</code></span>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-badge">B</div>
+          <h3>Opción B: Clonar y compilar tú mismo</h3>
+          <p>Si eres desarrollador y prefieres compilar el proyecto manualmente con Angular 18:</p>
+          <div class="code-box">
+            git clone https://github.com/vicnx/ig-unfollowers-angular-extension.git<br/>
+            cd ig-unfollowers-angular-extension<br/>
+            npm install<br/>
+            npm run build
+          </div>
+          <p style="margin-top: 12px;">Esto generará la carpeta <code>dist/</code> lista para ser cargada en el navegador.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: INSTALACIÓN EN NAVEGADOR -->
+    <section class="section" id="instalacion">
+      <div class="section-header">
+        <div class="section-tag">Paso 2</div>
+        <h2 class="section-title">Cómo Añadir la Extensión a tu Navegador</h2>
+        <p class="section-subtitle">Válido para Google Chrome, Brave, Microsoft Edge, Opera y navegadores Chromium.</p>
+      </div>
+
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-badge">1</div>
+          <h3>Descomprimir el archivo</h3>
+          <p>Si descargaste el archivo <code>ig-unfollowers-extension.zip</code>, descomprímelo en una carpeta accesible en tu ordenador (por ejemplo en tu carpeta de Documentos o Proyectos).</p>
+        </div>
+
+        <div class="step-item">
+          <div class="step-badge">2</div>
+          <h3>Abrir el gestor de extensiones y activar el Modo Desarrollador</h3>
+          <p>Escribe en la barra de direcciones de tu navegador: <code>chrome://extensions/</code> (o <code>edge://extensions/</code>, <code>brave://extensions/</code>).</p>
+          <p>En la esquina superior derecha de la pantalla, activa el interruptor de <strong>"Modo de desarrollador"</strong>.</p>
+
+          <!-- Espacio pendiente para captura de pantalla de modo desarrollador -->
+          <div class="image-placeholder">
+            <span class="image-placeholder-icon">📷</span>
+            <span class="image-placeholder-title">[IMAGEN PENDIENTE: Activar 'Modo de desarrollador' en chrome://extensions]</span>
+            <span class="image-placeholder-desc">Ruta recomendada: <code>docs/assets/images/step_dev_mode.png</code></span>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-badge">3</div>
+          <h3>Cargar la carpeta descomprimida</h3>
+          <p>Haz clic en el botón <strong>"Cargar descomprimida"</strong> (o <em>Load unpacked</em>) que aparecerá en la parte superior izquierda.</p>
+          <p>Selecciona la carpeta donde descomprimiste el ZIP (o la carpeta <code>dist/</code> generada tras compilar).</p>
+
+          <!-- Espacio pendiente para captura de pantalla de cargar descomprimida -->
+          <div class="image-placeholder">
+            <span class="image-placeholder-icon">📷</span>
+            <span class="image-placeholder-title">[IMAGEN PENDIENTE: Clic en 'Cargar descomprimida' y selección de la carpeta dist]</span>
+            <span class="image-placeholder-desc">Ruta recomendada: <code>docs/assets/images/step_load_unpacked.png</code></span>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-badge">4</div>
+          <h3>¡Listo! Extensión instalada</h3>
+          <p>Verás la tarjeta de <strong>¿Quién me dejó de seguir? - Instagram Unfollowers</strong> activa en tu lista de extensiones. Puedes fijarla en la barra superior para tenerla siempre a mano.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: MODO DE USO EN INSTAGRAM -->
+    <section class="section" id="uso">
+      <div class="section-header">
+        <div class="section-tag">Paso 3</div>
+        <h2 class="section-title">Cómo Usarla en Instagram</h2>
+        <p class="section-subtitle">La extensión se integra automáticamente en la interfaz web de Instagram.</p>
+      </div>
+
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-badge">1</div>
+          <h3>Inicia sesión en Instagram</h3>
+          <p>Dirígete a <a href="https://www.instagram.com" target="_blank" style="color: #0095f6;">instagram.com</a> e inicia sesión con tu cuenta si aún no lo has hecho.</p>
+        </div>
+
+        <div class="step-item">
+          <div class="step-badge">2</div>
+          <h3>Localiza el Botón Flotante Arriba a la Derecha</h3>
+          <p>En la esquina superior derecha verás el botón circular con el degradado oficial de Instagram. Haz clic en él para abrir el panel lateral deslizable (drawer).</p>
+
+          <!-- Espacio pendiente para captura de pantalla del botón flotante -->
+          <div class="image-placeholder">
+            <span class="image-placeholder-icon">📷</span>
+            <span class="image-placeholder-title">[IMAGEN PENDIENTE: Botón flotante arriba a la derecha en instagram.com]</span>
+            <span class="image-placeholder-desc">Ruta recomendada: <code>docs/assets/images/step_floating_button.png</code></span>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-badge">3</div>
+          <h3>Comenzar Auditoría</h3>
+          <p>Pulsa el botón <strong>"Comenzar Auditoría"</strong>. La herramienta analizará de forma segura tus seguidos y seguidores para calcular quién no te sigue de vuelta.</p>
+
+          <!-- Captura de pantalla de resultados y filtros -->
+          <img src="assets/images/step_audit_results.png" alt="Panel deslizable con tarjetas de usuario, avatares y filtros" class="doc-image" />
+        </div>
+
+        <div class="step-item">
+          <div class="step-badge">4</div>
+          <h3>Filtros, Lista Blanca y Bajas Seguras</h3>
+          <p>Usa los filtros rápidos (Verificados, Privados, Sin foto), protege a tus amigos con la <strong>estrella ⭐</strong> y deja de seguir de forma segura a las cuentas seleccionadas con visualización de cola en vivo.</p>
+
+          <!-- Espacio pendiente para captura de pantalla de la cola de unfollow -->
+          <div class="image-placeholder">
+            <span class="image-placeholder-icon">📷</span>
+            <span class="image-placeholder-title">[IMAGEN PENDIENTE: Vista de la cola de unfollow en tiempo real]</span>
+            <span class="image-placeholder-desc">Ruta recomendada: <code>docs/assets/images/step_unfollow_queue.png</code></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: FAQ -->
+    <section class="section" id="faq">
+      <div class="section-header">
+        <div class="section-tag">Dudas</div>
+        <h2 class="section-title">Preguntas Frecuentes</h2>
+      </div>
+
+      <div class="faq-grid">
+        <div class="faq-item">
+          <h4>¿Existe riesgo de que bloqueen mi cuenta de Instagram?</h4>
+          <p>La extensión incorpora pausas humanas aleatorias y descansos obligatorios cada 5 acciones de baja para respetar los límites de la plataforma. Siempre se recomienda realizar bajas moderadas (por ejemplo 20 a 50 cuentas al día) para máxima seguridad.</p>
+        </div>
+
+        <div class="faq-item">
+          <h4>¿Necesito introducir mi contraseña o tokens?</h4>
+          <p>No. La extensión se ejecuta en tu propio navegador y utiliza la sesión autenticada que ya tienes abierta en Instagram de forma completamente local.</p>
+        </div>
+
+        <div class="faq-item">
+          <h4>¿Puedo exportar los resultados a Excel?</h4>
+          <p>Sí, en la barra superior del panel dispones de un botón para exportar la lista completa de no-seguidores en formato CSV compatible con Microsoft Excel y Google Sheets.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="site-footer">
+    <p>
+      Creado con ❤️ por <strong><a href="https://github.com/vicnx" target="_blank" rel="noopener noreferrer">Xente (Vicente Andani)</a></strong>
+    </p>
+    <p style="margin-top: 6px; font-size: 11px;">
+      Código abierto bajo licencia MIT — Este proyecto no está asociado ni respaldado por Instagram o Meta.
+    </p>
+  </footer>
+
+</body>
+</html>

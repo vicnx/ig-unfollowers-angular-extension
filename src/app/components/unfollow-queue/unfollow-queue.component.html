@@ -1,0 +1,76 @@
+<div class="unfollow-queue-container">
+  <!-- Cabecera de la cola de unfollow con contador y botón de finalizar -->
+  <div class="queue-header">
+    <div class="title-col">
+      <h4>Progreso de Dejar de Seguir</h4>
+      <span class="subtitle">{{ scanner.unfollowLog().length }} de {{ scanner.selectedUsers().length }} procesados</span>
+    </div>
+
+    <!-- Botón para regresar a la vista de auditoría una vez finalizado -->
+    @if (scanner.unfollowLog().length === scanner.selectedUsers().length) {
+      <button
+        class="ig-btn-primary done-btn"
+        (click)="returnToScan()"
+      >
+        ✓ Finalizar
+      </button>
+    }
+  </div>
+
+  <!-- Filtros de registro: Exitosos vs Fallidos -->
+  <div class="log-filters">
+    <label class="filter-check">
+      <input
+        type="checkbox"
+        [checked]="scanner.unfollowFilter().showSucceeded"
+        (change)="toggleFilter('showSucceeded')"
+      />
+      <span class="status-dot green"></span>
+      Exitosos
+    </label>
+
+    <label class="filter-check">
+      <input
+        type="checkbox"
+        [checked]="scanner.unfollowFilter().showFailed"
+        (change)="toggleFilter('showFailed')"
+      />
+      <span class="status-dot red"></span>
+      Fallidos
+    </label>
+  </div>
+
+  <!-- Lista con scroll de cuentas procesadas en tiempo real -->
+  <div class="log-list">
+    @for (item of scanner.displayedUnfollowLog(); track item.user.id + '_' + item.timestamp) {
+      <div
+        class="log-card"
+        [class.success]="item.unfollowedSuccessfully"
+        [class.error]="!item.unfollowedSuccessfully"
+      >
+        <img
+          class="avatar"
+          [src]="getAvatarSrc(item.user)"
+          [alt]="item.user.username"
+          (error)="onImageError($event, item.user)"
+          loading="lazy"
+          referrerpolicy="no-referrer"
+          crossorigin="anonymous"
+        />
+        <div class="log-info">
+          <span class="username">{{ item.user.username }}</span>
+          <span class="status-text">
+            {{ item.unfollowedSuccessfully ? 'Dejado de seguir correctamente' : (item.errorMessage || 'Error en la petición') }}
+          </span>
+        </div>
+        <div class="result-badge">
+          {{ item.unfollowedSuccessfully ? '✓' : '✕' }}
+        </div>
+      </div>
+    } @empty {
+      <div class="empty-state">
+        No hay registros para mostrar con el filtro actual.
+      </div>
+    }
+  </div>
+</div>

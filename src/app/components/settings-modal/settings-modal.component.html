@@ -1,0 +1,116 @@
+<div class="modal-backdrop" (click)="close.emit()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+    <!-- Cabecera del modal -->
+    <div class="modal-header">
+      <h3>Ajustes & Lista Blanca</h3>
+      <button class="close-btn" (click)="close.emit()" title="Cerrar ventana de ajustes">✕</button>
+    </div>
+
+    <!-- Cuerpo con opciones de configuración -->
+    <div class="modal-body">
+      <!-- SECCIÓN 1: TIEMPOS DE BÚSQUEDA Y PAUSAS ANTI-BANEO -->
+      <div class="settings-section">
+        <h4 class="section-title">⏱️ Tiempos de Búsqueda y Pausas Anti-Baneo</h4>
+
+        <div class="form-row">
+          <label>Tiempo entre ciclos de escaneo:</label>
+          <div class="input-unit">
+            <input type="number" [(ngModel)]="formTimings.timeBetweenSearchCycles" min="500" max="60000" />
+            <span>ms</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label>Pausa larga cada 5 ciclos de escaneo:</label>
+          <div class="input-unit">
+            <input type="number" [(ngModel)]="formTimings.timeToWaitAfterFiveSearchCycles" min="4000" max="120000" />
+            <span>ms</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label>Tiempo entre cada unfollow:</label>
+          <div class="input-unit">
+            <input type="number" [(ngModel)]="formTimings.timeBetweenUnfollows" min="2000" max="60000" />
+            <span>ms</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label>Pausa larga cada 5 unfollows:</label>
+          <div class="input-unit">
+            <input type="number" [(ngModel)]="formTimings.timeToWaitAfterFiveUnfollows" min="60000" max="900000" />
+            <span>ms</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label>Usuarios por petición de escaneo:</label>
+          <div class="input-unit">
+            <input type="number" [(ngModel)]="formTimings.usersPerSearchCycle" min="10" max="100" />
+            <span>cuentas</span>
+          </div>
+        </div>
+
+        <!-- Aviso de seguridad para no alterar demasiado los tiempos -->
+        <div class="warning-banner">
+          ⚠️ <strong>Precaución:</strong> Reducir estos tiempos por debajo de lo recomendado aumenta el riesgo de bloqueo temporal por parte de Meta/Instagram. Se sugiere conservar los valores estándar.
+        </div>
+      </div>
+
+      <hr class="divider" />
+
+      <!-- SECCIÓN 2: GESTIÓN Y COPIAS DE SEGURIDAD DE LISTA BLANCA -->
+      <div class="settings-section">
+        <div class="section-header-row">
+          <h4 class="section-title">⭐ Gestión de Lista Blanca</h4>
+          <span class="badge-count">{{ scanner.whitelistedUsers().length }} protegidos</span>
+        </div>
+
+        <p class="section-desc">
+          Exporta tu lista de usuarios protegidos en formato JSON como copia de seguridad o impórtala desde otro dispositivo.
+        </p>
+
+        <!-- Botones de Acción de Lista Blanca -->
+        <div class="whitelist-buttons-grid">
+          <button class="ig-btn-secondary" (click)="scanner.exportWhitelist()" title="Descargar copia de seguridad en JSON">
+            📥 Exportar JSON
+          </button>
+
+          <label class="ig-btn-secondary file-upload-btn" title="Cargar archivo JSON de Lista Blanca">
+            📤 Importar JSON
+            <input type="file" accept=".json" (change)="onImportFile($event)" style="display: none;" />
+          </label>
+
+          <button
+            class="ig-btn-secondary danger"
+            (click)="scanner.clearAllWhitelist()"
+            [disabled]="scanner.whitelistedUsers().length === 0"
+            title="Borrar todas las cuentas de la Lista Blanca"
+          >
+            🗑️ Vaciar Lista
+          </button>
+        </div>
+
+        <!-- Opciones de importación: Combinar vs Reemplazar con radio buttons estilizados -->
+        <div class="import-mode-row">
+          <span class="mode-label">Modo al importar:</span>
+          <label class="radio-label">
+            <input type="radio" name="importMode" value="merge" [(ngModel)]="importMode" />
+            Combinar (añadir nuevos)
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="importMode" value="replace" [(ngModel)]="importMode" />
+            Reemplazar todo
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pie del modal con acciones de Guardar / Cancelar -->
+    <div class="modal-footer">
+      <button class="ig-btn-secondary" (click)="close.emit()">Cancelar</button>
+      <button class="ig-btn-primary" (click)="saveSettings()">Guardar Cambios</button>
+    </div>
+  </div>
+</div>

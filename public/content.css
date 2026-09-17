@@ -1,0 +1,74 @@
+/* Floating button & drawer overlay injected on instagram.com */
+
+#ig-unfollowers-floating-btn {
+  position: fixed !important;
+  top: 20px !important;
+  right: 24px !important;
+  bottom: auto !important;
+  width: 54px !important;
+  height: 54px !important;
+  border-radius: 50% !important;
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important;
+  box-shadow: 0 4px 20px rgba(220, 39, 67, 0.45), 0 0 0 2px rgba(255, 255, 255, 0.15) !important;
+  border: none !important;
+  cursor: pointer !important;
+  z-index: 999998 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease !important;
+  color: #ffffff !important;
+  outline: none !important;
+}
+
+#ig-unfollowers-floating-btn:hover {
+  transform: scale(1.08) translateY(-2px) !important;
+  box-shadow: 0 8px 28px rgba(220, 39, 67, 0.65), 0 0 0 3px rgba(255, 255, 255, 0.3) !important;
+}
+
+#ig-unfollowers-floating-btn:active {
+  transform: scale(0.96) !important;
+}
+
+#ig-unfollowers-floating-btn svg {
+  width: 26px !important;
+  height: 26px !important;
+  stroke: #ffffff !important;
+  fill: none !important;
+  stroke-width: 2 !important;
+}
+
+#ig-unfollowers-backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(0, 0, 0, 0.5) !important;
+  backdrop-filter: blur(4px) !important;
+  z-index: 999998 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: opacity 0.3s ease !important;
+}
+
+#ig-unfollowers-backdrop.active {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+#ig-unfollowers-drawer {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  width: 460px !important;
+  max-width: 95vw !important;
+  height: 100vh !important;
+  z-index: 999999 !important;
+  border: none !important;
+  box-shadow: -8px 0 36px rgba(0, 0, 0, 0.65) !important;
+  transform: translateX(100%) !important;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  background: #000000 !important;
+}
+
+#ig-unfollowers-drawer.open {
+  transform: translateX(0) !important;
+}

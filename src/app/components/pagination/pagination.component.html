@@ -1,0 +1,54 @@
+@if (scanner.displayedUsers().length > 0) {
+  <div class="pagination-container">
+    <!-- Checkboxes de Selección Masiva (Página actual / Todos los filtrados) -->
+    <div class="select-toggles">
+      <label class="toggle-item" title="Seleccionar todos los de esta página">
+        <input
+          type="checkbox"
+          [checked]="isPageAllSelected()"
+          (change)="onTogglePage($event)"
+        />
+        <span>Pág</span>
+      </label>
+
+      <label class="toggle-item" title="Seleccionar todos los filtrados">
+        <input
+          type="checkbox"
+          [checked]="isAllSelected()"
+          (change)="onToggleAll($event)"
+        />
+        <span>Todos</span>
+      </label>
+    </div>
+
+    <!-- Controles de Paginación Numérica -->
+    <div class="page-controls">
+      <button
+        class="page-btn"
+        [disabled]="scanner.currentPage() <= 1"
+        (click)="scanner.goToPage(scanner.currentPage() - 1)"
+        title="Página anterior"
+      >
+        ❮
+      </button>
+
+      <span class="page-info">
+        {{ scanner.currentPage() }} / {{ scanner.totalPages() }}
+      </span>
+
+      <button
+        class="page-btn"
+        [disabled]="scanner.currentPage() >= scanner.totalPages()"
+        (click)="scanner.goToPage(scanner.currentPage() + 1)"
+        title="Página siguiente"
+      >
+        ❯
+      </button>
+    </div>
+
+    <!-- Contador total de usuarios filtrados -->
+    <div class="total-info">
+      {{ scanner.displayedUsers().length }} usuarios
+    </div>
+  </div>
+}

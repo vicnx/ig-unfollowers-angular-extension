@@ -1,0 +1,79 @@
+.app-footer {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  padding: 8px 16px;
+  background: rgba(14, 14, 14, 0.95);
+  border-top: 1px solid var(--ig-border);
+  backdrop-filter: blur(12px);
+  flex-shrink: 0;
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--ig-text-tertiary);
+}
+
+.created-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  .heart {
+    color: #ff3366;
+    animation: pulseHeart 2s infinite ease-in-out;
+  }
+}
+
+.author-link {
+  color: var(--ig-text-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 500;
+  padding: 2px 6px;
+  border-radius: var(--ig-radius-sm);
+  transition: all 0.2s ease;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--ig-border-light);
+
+  .gh-icon {
+    color: var(--ig-text-secondary);
+    transition: transform 0.2s;
+  }
+
+  strong {
+    background: var(--ig-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+
+    .gh-icon {
+      color: #ffffff;
+      transform: rotate(8deg);
+    }
+  }
+}
+
+.version-tag {
+  font-size: 10px;
+  color: var(--ig-text-tertiary);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1px 6px;
+  border-radius: var(--ig-radius-full);
+  font-family: monospace;
+}
+
+@keyframes pulseHeart {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}

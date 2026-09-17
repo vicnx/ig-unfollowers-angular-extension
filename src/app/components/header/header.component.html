@@ -1,0 +1,83 @@
+<header class="app-header">
+  <div class="header-top">
+    <!-- Logotipo y Nombre de la Aplicación -->
+    <div class="brand">
+      <div class="ig-logo-icon">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <span class="title">¿Quién me dejó de seguir?</span>
+        <span class="subtitle">Instagram Unfollowers</span>
+      </div>
+    </div>
+
+    <!-- Botones de Acción Superiores -->
+    <div class="header-actions">
+      <!-- Exportar a CSV (deshabilitado si no hay resultados) -->
+      <button
+        class="icon-btn"
+        title="Exportar a CSV"
+        (click)="scanner.exportUnfollowersCsv()"
+        [disabled]="scanner.displayedUsers().length === 0"
+      >
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+      </button>
+
+      <!-- Abrir Modal de Ajustes y Lista Blanca -->
+      <button
+        class="icon-btn"
+        title="Ajustes y Lista Blanca"
+        (click)="openSettings.emit()"
+      >
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+      </button>
+
+      <!-- Botón para cerrar el panel lateral deslizable -->
+      <button
+        class="icon-btn close-btn"
+        title="Cerrar panel"
+        (click)="closeDrawer()"
+      >
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Buscador en tiempo real con icono -->
+  <div class="search-box">
+    <svg class="search-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="11" cy="11" r="8"></circle>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </svg>
+    <input
+      type="text"
+      placeholder="Buscar por usuario o nombre..."
+      [ngModel]="scanner.searchTerm()"
+      (ngModelChange)="scanner.searchTerm.set($event)"
+      [disabled]="scanner.status() === 'initial'"
+    />
+    @if (scanner.searchTerm()) {
+      <button
+        class="clear-search"
+        (click)="scanner.searchTerm.set('')"
+        title="Limpiar búsqueda"
+      >
+        ✕
+      </button>
+    }
+  </div>
+</header>

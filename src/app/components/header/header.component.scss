@@ -1,0 +1,129 @@
+.app-header {
+  padding: 14px 16px;
+  background: rgba(18, 18, 18, 0.95);
+  border-bottom: 1px solid var(--ig-border);
+  backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ig-logo-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--ig-radius-md);
+  background: var(--ig-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(220, 39, 67, 0.35);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+
+  .title {
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: -0.3px;
+    background: var(--ig-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .subtitle {
+    font-size: 11px;
+    color: var(--ig-text-secondary);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--ig-radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ig-text-secondary);
+  background: rgba(255, 255, 255, 0.05);
+  transition: all 0.2s ease;
+
+  &:hover:not(:disabled) {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  &.close-btn:hover {
+    color: var(--ig-danger);
+    background: rgba(237, 73, 86, 0.15);
+  }
+}
+
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  .search-icon {
+    position: absolute;
+    left: 12px;
+    color: var(--ig-text-tertiary);
+    pointer-events: none;
+  }
+
+  input {
+    width: 100%;
+    padding: 8px 32px 8px 36px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--ig-border);
+    border-radius: var(--ig-radius-full);
+    font-size: 12px;
+
+    &::placeholder {
+      color: var(--ig-text-tertiary);
+    }
+  }
+
+  .clear-search {
+    position: absolute;
+    right: 10px;
+    color: var(--ig-text-tertiary);
+    font-size: 12px;
+    padding: 4px;
+
+    &:hover {
+      color: #ffffff;
+    }
+  }
+}

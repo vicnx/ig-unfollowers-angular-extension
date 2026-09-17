@@ -1,0 +1,78 @@
+<div class="user-card" [class.selected]="isSelected()">
+  <!-- Checkbox de selección individual con diseño Instagram -->
+  <label class="checkbox-container">
+    <input
+      type="checkbox"
+      [checked]="isSelected()"
+      (change)="onCheckboxChange($event)"
+      title="Seleccionar cuenta"
+    />
+  </label>
+
+  <!-- Avatar de usuario con icono flotante de estrella al pasar el cursor -->
+  <div class="avatar-wrapper" (click)="scanner.toggleWhitelist(user())" title="Clic para alternar protección en Lista Blanca">
+    <img
+      class="avatar"
+      [src]="avatarSrc()"
+      [alt]="user().username"
+      (error)="onImageError($event)"
+      loading="lazy"
+      referrerpolicy="no-referrer"
+      crossorigin="anonymous"
+    />
+    <div class="star-overlay" [class.starred]="isWhitelisted()">
+      ⭐
+    </div>
+  </div>
+
+  <!-- Información de usuario: Nombre de usuario, nombre completo y badges -->
+  <div class="user-info">
+    <div class="username-row">
+      <!-- Enlace directo al perfil en Instagram -->
+      <a
+        class="username"
+        [href]="'https://www.instagram.com/' + user().username"
+        target="_blank"
+        rel="noopener noreferrer"
+        title="Abrir perfil de Instagram"
+      >
+        {{ user().username }}
+      </a>
+
+      <!-- Badge de cuenta verificada oficial -->
+      @if (user().is_verified) {
+        <span class="badge-verified" title="Cuenta verificada">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="#0095f6">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.2 14.2l-3.8-3.8 1.4-1.4 2.4 2.4 5.4-5.4 1.4 1.4-6.8 6.8z"/>
+          </svg>
+        </span>
+      }
+
+      <!-- Badge de cuenta privada -->
+      @if (user().is_private) {
+        <span class="badge-private" title="Cuenta privada">
+          🔒 Privada
+        </span>
+      }
+    </div>
+
+    <!-- Nombre completo público -->
+    @if (user().full_name) {
+      <div class="full-name">
+        {{ user().full_name }}
+      </div>
+    }
+  </div>
+
+  <!-- Botón de estrella para alternar Lista Blanca rápidamente -->
+  <button
+    class="whitelist-star-btn"
+    [class.active]="isWhitelisted()"
+    (click)="scanner.toggleWhitelist(user())"
+    [title]="isWhitelisted() ? 'Quitar de Lista Blanca' : 'Proteger en Lista Blanca'"
+  >
+    <svg viewBox="0 0 24 24" width="18" height="18" [attr.fill]="isWhitelisted() ? 'gold' : 'none'" stroke="currentColor" stroke-width="2">
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+    </svg>
+  </button>
+</div>
