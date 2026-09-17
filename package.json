@@ -9,7 +9,8 @@
     "test": "ng test",
     "version:patch": "node scripts/bump-version.js patch",
     "version:minor": "node scripts/bump-version.js minor",
-    "version:major": "node scripts/bump-version.js major"
+    "version:major": "node scripts/bump-version.js major",
+    "package": "node scripts/package-extension.js"
   },
   "private": true,
   "dependencies": {
