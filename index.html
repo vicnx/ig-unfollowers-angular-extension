@@ -143,8 +143,15 @@
       <div class="steps-list">
         <div class="step-item">
           <div class="step-badge">1</div>
-          <h3>Descomprimir el archivo</h3>
-          <p>Si descargaste el archivo <code>ig-unfollowers-extension.zip</code>, descomprímelo en una carpeta accesible en tu ordenador (por ejemplo en tu carpeta de Documentos o Proyectos).</p>
+          <h3>Descomprimir el archivo ZIP (Obligatorio)</h3>
+          <p>Si descargaste el archivo <code>ig-unfollowers-extension.zip</code>, debes <strong>descomprimirlo / extraerlo en una carpeta</strong> de tu ordenador (haz clic derecho sobre el ZIP ➔ <em>"Extraer todo..."</em>).</p>
+          
+          <div class="alert-box alert-warning">
+            <div class="alert-icon">⚠️</div>
+            <div class="alert-content">
+              <strong>Importante:</strong> Los navegadores Chromium (Chrome, Brave, Edge, Opera) <strong>no</strong> permiten seleccionar ni cargar un archivo <code>.zip</code> directamente. El botón <em>"Cargar descomprimida"</em> busca una <strong>carpeta física</strong> que contenga el archivo <code>manifest.json</code>.
+            </div>
+          </div>
         </div>
 
         <div class="step-item">
@@ -153,12 +160,8 @@
           <p>Escribe en la barra de direcciones de tu navegador: <code>chrome://extensions/</code> (o <code>edge://extensions/</code>, <code>brave://extensions/</code>).</p>
           <p>En la esquina superior derecha de la pantalla, activa el interruptor de <strong>"Modo de desarrollador"</strong>.</p>
 
-          <!-- Espacio pendiente para captura de pantalla de modo desarrollador -->
-          <div class="image-placeholder">
-            <span class="image-placeholder-icon">📷</span>
-            <span class="image-placeholder-title">[IMAGEN PENDIENTE: Activar 'Modo de desarrollador' en chrome://extensions]</span>
-            <span class="image-placeholder-desc">Ruta recomendada: <code>assets/images/step_dev_mode.png</code></span>
-          </div>
+          <!-- Captura de pantalla de modo desarrollador en el navegador -->
+          <img src="assets/images/step_dev_mode.png" alt="Activar 'Modo de desarrollador' en extensiones" class="doc-image" />
         </div>
 
         <div class="step-item">
@@ -167,12 +170,8 @@
           <p>Haz clic en el botón <strong>"Cargar descomprimida"</strong> (o <em>Load unpacked</em>) que aparecerá en la parte superior izquierda.</p>
           <p>Selecciona la carpeta donde descomprimiste el ZIP (o la carpeta <code>dist/</code> generada tras compilar).</p>
 
-          <!-- Espacio pendiente para captura de pantalla de cargar descomprimida -->
-          <div class="image-placeholder">
-            <span class="image-placeholder-icon">📷</span>
-            <span class="image-placeholder-title">[IMAGEN PENDIENTE: Clic en 'Cargar descomprimida' y selección de la carpeta dist]</span>
-            <span class="image-placeholder-desc">Ruta recomendada: <code>assets/images/step_load_unpacked.png</code></span>
-          </div>
+          <!-- Captura de pantalla de cargar descomprimida y extensión activa -->
+          <img src="assets/images/step_load_unpacked.png" alt="Clic en 'Cargar descomprimida' y extensión cargada con éxito" class="doc-image" />
         </div>
 
         <div class="step-item">
@@ -203,17 +202,22 @@
           <h3>Localiza el Botón Flotante Arriba a la Derecha</h3>
           <p>En la esquina superior derecha verás el botón circular con el degradado oficial de Instagram. Haz clic en él para abrir el panel lateral deslizable (drawer).</p>
 
-          <!-- Espacio pendiente para captura de pantalla del botón flotante -->
-          <div class="image-placeholder">
-            <span class="image-placeholder-icon">📷</span>
-            <span class="image-placeholder-title">[IMAGEN PENDIENTE: Botón flotante arriba a la derecha en instagram.com]</span>
-            <span class="image-placeholder-desc">Ruta recomendada: <code>assets/images/step_floating_button.png</code></span>
-          </div>
+          <!-- Captura de pantalla del botón flotante -->
+          <img src="assets/images/step_floating_button.png" alt="Botón flotante en la esquina superior derecha de instagram.com" class="doc-image" />
         </div>
 
         <div class="step-item">
           <div class="step-badge">3</div>
-          <h3>Comenzar Auditoría</h3>
+          <h3>Pantalla de Bienvenida y Ajustes Seguros</h3>
+          <p>Al abrir el panel verás el aviso de transparencia: confirmación de privacidad 100% Client-Side, cero acceso a contraseñas y las pausas anti-bloqueo configuradas en segundos.</p>
+
+          <!-- Captura de la pantalla de bienvenida y seguridad -->
+          <img src="assets/images/step_welcome_page_style.png" alt="Pantalla de bienvenida y seguridad anti-bloqueo" class="doc-image" />
+        </div>
+
+        <div class="step-item">
+          <div class="step-badge">4</div>
+          <h3>Comenzar Auditoría y Ver Resultados</h3>
           <p>Pulsa el botón <strong>"Comenzar Auditoría"</strong>. La herramienta analizará de forma segura tus seguidos y seguidores para calcular quién no te sigue de vuelta.</p>
 
           <!-- Captura de pantalla de resultados y filtros -->
@@ -221,16 +225,9 @@
         </div>
 
         <div class="step-item">
-          <div class="step-badge">4</div>
+          <div class="step-badge">5</div>
           <h3>Filtros, Lista Blanca y Bajas Seguras</h3>
-          <p>Usa los filtros rápidos (Verificados, Privados, Sin foto), protege a tus amigos con la <strong>estrella ⭐</strong> y deja de seguir de forma segura a las cuentas seleccionadas con visualización de cola en vivo.</p>
-
-          <!-- Espacio pendiente para captura de pantalla de la cola de unfollow -->
-          <div class="image-placeholder">
-            <span class="image-placeholder-icon">📷</span>
-            <span class="image-placeholder-title">[IMAGEN PENDIENTE: Vista de la cola de unfollow en tiempo real]</span>
-            <span class="image-placeholder-desc">Ruta recomendada: <code>assets/images/step_unfollow_queue.png</code></span>
-          </div>
+          <p>Usa los filtros rápidos (Verificados, Privados, Sin foto), protege a tus amigos con la <strong>estrella ⭐</strong> y deja de seguir de forma segura a las cuentas seleccionadas con visualización de cola en tiempo real.</p>
         </div>
       </div>
     </section>
@@ -243,6 +240,11 @@
       </div>
 
       <div class="faq-grid">
+        <div class="faq-item">
+          <h4>¿Puedo cargar el archivo .zip directamente en el navegador sin descomprimir?</h4>
+          <p>No. Los navegadores Chromium (Chrome, Brave, Edge, Opera) requieren que extraigas el archivo ZIP primero. El botón oficial se llama <em>"Cargar descomprimida"</em> porque busca la carpeta que contiene los archivos de la extensión (especialmente <code>manifest.json</code>).</p>
+        </div>
+
         <div class="faq-item">
           <h4>¿Existe riesgo de que bloqueen mi cuenta de Instagram?</h4>
           <p>La extensión incorpora pausas humanas aleatorias y descansos obligatorios cada 5 acciones de baja para respetar los límites de la plataforma. Siempre se recomienda realizar bajas moderadas (por ejemplo 20 a 50 cuentas al día) para máxima seguridad.</p>
@@ -265,7 +267,7 @@
   <!-- PIE DE PÁGINA -->
   <footer class="site-footer">
     <p>
-      Creado con ❤️ por <strong><a href="https://github.com/vicnx" target="_blank" rel="noopener noreferrer">Xente (Vicente Andani)</a></strong>
+      Creado con ❤️ por <strong><a href="https://github.com/vicnx" target="_blank" rel="noopener noreferrer">Xente</a></strong>
     </p>
     <p style="margin-top: 6px; font-size: 11px;">
       Código abierto bajo licencia MIT — Este proyecto no está asociado ni respaldado por Instagram o Meta.
