@@ -84,15 +84,34 @@ La versión se define en:
 - `public/manifest.json` (`"version": "1.0.0"`)
 - `README.md` (Badge de versión oficial)
 
-### 5.2 Scripts de Subida de Versión
-Para subir la versión de forma sincronizada y automática (incluyendo la actualización del checksum de seguridad):
+### 5.2 Scripts de Subida de Versión (Ejecución Automática Obligatoria)
+
+El script [`scripts/bump-version.js`](scripts/bump-version.js) actualiza de forma atómica y sincronizada **todos** los puntos de versión:
+- `package.json`
+- `public/manifest.json`
+- `src/app/constants/version.constants.ts`
+- `src/app/core/security/integrity.service.ts` (checksum cifrado XOR)
+- `README.md` (badge de versión)
+
+> **REGLA OBLIGATORIA:** El agente **DEBE ejecutar automáticamente** el script correspondiente al final de cada tarea que implique un cambio de versión, sin esperar confirmación del usuario. **NUNCA** actualizar manualmente uno solo de los archivos de versión sin ejecutar el script.
+
 ```bash
-npm run version:patch   # Sube el parche (ej. 1.0.0 -> 1.0.1)
-npm run version:minor   # Sube la versión menor (ej. 1.0.0 -> 1.1.0)
-npm run version:major   # Sube la versión mayor (ej. 1.0.0 -> 2.0.0)
+npm run version:patch   # Sube el parche (ej. 1.0.0 -> 1.0.1)  ← usar para fix, style, docs, perf
+npm run version:minor   # Sube la versión menor (ej. 1.0.0 -> 1.1.0)  ← usar para feat
+npm run version:major   # Sube la versión mayor (ej. 1.0.0 -> 2.0.0)  ← usar para breaking changes
 ```
 
----
+**Criterio de selección automática del tipo:**
+| Tipo de commit | Script a ejecutar |
+| :--- | :--- |
+| `feat` (nueva funcionalidad) | `npm run version:minor` |
+| `fix`, `style`, `perf`, `docs`, `refactor` | `npm run version:patch` |
+| `security` (anti-tampering, integridad) | `npm run version:patch` |
+| `chore` sin cambios funcionales | ❌ No subir versión |
+| Breaking change o reestructuración nuclear | `npm run version:major` |
+
+Tras ejecutar el script, el agente debe incluir la nueva versión en el mensaje de commit sugerido.
+
 
 ## 📝 6. Regla de Recomendación de Commits (Obligatoria)
 
