@@ -32,4 +32,5 @@ export const STORAGE_KEYS = {
   LAST_SCAN: 'iu_last_scan',
   THEME: 'iu_theme',
   WELCOME_SEEN: 'iu_welcome_seen',
+  MOCK_MODE: 'iu_mock_mode',
 };

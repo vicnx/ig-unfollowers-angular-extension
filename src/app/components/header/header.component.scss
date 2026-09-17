@@ -39,6 +39,12 @@
   display: flex;
   flex-direction: column;
 
+  .title-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
   .title {
     font-weight: 700;
     font-size: 13px;
@@ -46,6 +52,24 @@
     background: var(--ig-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+  }
+
+  .mock-pill {
+    font-size: 9px;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: var(--ig-radius-full);
+    background: var(--ig-gradient);
+    color: #ffffff;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 6px rgba(220, 39, 67, 0.3);
+    transition: transform 0.15s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
   }
 
   .subtitle {

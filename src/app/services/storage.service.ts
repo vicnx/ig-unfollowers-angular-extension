@@ -75,6 +75,14 @@ export class StorageService {
     return this.set<Timings>(STORAGE_KEYS.TIMINGS, timings);
   }
 
+  async loadMockMode(): Promise<boolean> {
+    return this.get<boolean>(STORAGE_KEYS.MOCK_MODE, false);
+  }
+
+  async saveMockMode(enabled: boolean): Promise<void> {
+    return this.set<boolean>(STORAGE_KEYS.MOCK_MODE, enabled);
+  }
+
   exportWhitelistAsJson(users: UserNode[]): void {
     if (users.length === 0) {
       alert('No hay usuarios en la lista blanca para exportar.');

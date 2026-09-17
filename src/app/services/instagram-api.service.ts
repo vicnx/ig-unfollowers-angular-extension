@@ -6,6 +6,7 @@ import {
   INSTAGRAM_WEB_APP_ID,
   WITHOUT_PROFILE_PICTURE_URL_IDS,
 } from '../constants/instagram.constants';
+import { DEFAULT_MOCK_USERS } from '../constants/mock-users.constants';
 
 @Injectable({
   providedIn: 'root',
@@ -212,25 +213,21 @@ export class InstagramApiService {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
-  // Mock data for preview / local development mode
+  // Mock data para previsualización / desarrollo local
   private getMockFriendshipsPage(kind: 'following' | 'followers', maxId?: string): FriendshipsPage {
-    const mockUsers: RawFriendshipUser[] = [
-      { pk: '101', username: 'alex.design', full_name: 'Alex Rivera', profile_pic_url: 'https://api.dicebear.com/9.x/initials/svg?seed=alex', is_verified: true, is_private: false },
-      { pk: '102', username: 'studio_minimal', full_name: 'Studio Minimal', profile_pic_url: 'https://api.dicebear.com/9.x/initials/svg?seed=studio', is_verified: false, is_private: true },
-      { pk: '103', username: 'lucia_gomez', full_name: 'Lucía Gómez', profile_pic_url: 'https://api.dicebear.com/9.x/initials/svg?seed=lucia', is_verified: false, is_private: false },
-      { pk: '104', username: 'marco_photo', full_name: 'Marco Santos', profile_pic_url: 'https://api.dicebear.com/9.x/initials/svg?seed=marco', is_verified: true, is_private: false },
-      { pk: '105', username: 'craft_coffee', full_name: 'Craft Coffee Lab', profile_pic_url: 'https://api.dicebear.com/9.x/initials/svg?seed=coffee', is_verified: false, is_private: true },
-      { pk: '106', username: 'sofia.vlog', full_name: 'Sofía Valdés', profile_pic_url: 'https://api.dicebear.com/9.x/initials/svg?seed=sofia', is_verified: false, is_private: false },
-      { pk: '107', username: 'tech_insider', full_name: 'Tech Insider', profile_pic_url: 'https://api.dicebear.com/9.x/initials/svg?seed=tech', is_verified: true, is_private: false },
-      { pk: '108', username: 'nicolas_dev', full_name: 'Nicolás Morales', profile_pic_url: 'https://api.dicebear.com/9.x/initials/svg?seed=nico', is_verified: false, is_private: false },
-      { pk: '109', username: 'urban_vibes', full_name: 'Urban Architecture', profile_pic_url: 'https://api.dicebear.com/9.x/initials/svg?seed=urban', is_verified: false, is_private: true },
-      { pk: '110', username: 'diana_music', full_name: 'Diana Melodías', profile_pic_url: 'https://api.dicebear.com/9.x/initials/svg?seed=diana', is_verified: false, is_private: false },
-    ];
+    const mockUsers: RawFriendshipUser[] = DEFAULT_MOCK_USERS.map((u) => ({
+      pk: u.id,
+      username: u.username,
+      full_name: u.full_name,
+      profile_pic_url: u.profile_pic_url,
+      is_verified: u.is_verified,
+      is_private: u.is_private,
+    }));
 
     if (kind === 'followers') {
-      // Return a subset (e.g., only accounts 101, 103, 106, 110 follow us back)
+      const mutualIds = new Set(DEFAULT_MOCK_USERS.filter((u) => u.follows_viewer).map((u) => u.id));
       return {
-        users: mockUsers.filter((u) => ['101', '103', '106', '110'].includes(String(u.pk))),
+        users: mockUsers.filter((u) => mutualIds.has(String(u.pk))),
         has_more: false,
       };
     }

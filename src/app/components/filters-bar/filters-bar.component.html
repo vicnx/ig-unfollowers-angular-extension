@@ -1,95 +1,133 @@
-<div class="filters-bar-container">
-  <!-- PESTAÑAS: No-Seguidores vs Lista Blanca -->
+<div class="filters-bar-container" [class.collapsed]="!isExpanded()">
+  <!-- PESTAÑAS: No-Seguidores vs Lista Blanca + BOTÓN COLAPSAR/EXPANDIR -->
   <div class="tabs-row">
-    <button
-      class="tab-btn"
-      [class.active]="scanner.currentTab() === 'non_whitelisted'"
-      (click)="setTab('non_whitelisted')"
-    >
-      No-Seguidores
-      <span class="count-pill">{{ scanner.metrics().nonFollowers }}</span>
-    </button>
+    <div class="tabs-group">
+      <button
+        class="tab-btn"
+        [class.active]="scanner.currentTab() === 'non_whitelisted'"
+        (click)="setTab('non_whitelisted')"
+      >
+        No-Seguidores
+        <span class="count-pill">{{ scanner.metrics().nonFollowers }}</span>
+      </button>
 
-    <button
-      class="tab-btn"
-      [class.active]="scanner.currentTab() === 'whitelisted'"
-      (click)="setTab('whitelisted')"
-    >
-      Lista Blanca ⭐
-      <span class="count-pill">{{ scanner.metrics().whitelisted }}</span>
-    </button>
-  </div>
-
-  <!-- CHIPS DE FILTRO RÁPIDO CON CHECKBOXES ESTILIZADOS -->
-  <div class="filter-chips-row">
-    <label class="chip" [class.active]="scanner.filter().showNonFollowers">
-      <input
-        type="checkbox"
-        [checked]="scanner.filter().showNonFollowers"
-        (change)="toggleFilter('showNonFollowers')"
-      />
-      <span>No Me Siguen</span>
-    </label>
-
-    <label class="chip" [class.active]="scanner.filter().showFollowers">
-      <input
-        type="checkbox"
-        [checked]="scanner.filter().showFollowers"
-        (change)="toggleFilter('showFollowers')"
-      />
-      <span>Me Siguen</span>
-    </label>
-
-    <label class="chip" [class.active]="scanner.filter().showVerified">
-      <input
-        type="checkbox"
-        [checked]="scanner.filter().showVerified"
-        (change)="toggleFilter('showVerified')"
-      />
-      <span>Verificados</span>
-    </label>
-
-    <label class="chip" [class.active]="scanner.filter().showPrivate">
-      <input
-        type="checkbox"
-        [checked]="scanner.filter().showPrivate"
-        (change)="toggleFilter('showPrivate')"
-      />
-      <span>Privados</span>
-    </label>
-
-    <label class="chip" [class.active]="scanner.filter().showWithOutProfilePicture">
-      <input
-        type="checkbox"
-        [checked]="scanner.filter().showWithOutProfilePicture"
-        (change)="toggleFilter('showWithOutProfilePicture')"
-      />
-      <span>Sin Foto</span>
-    </label>
-  </div>
-
-  <!-- SELECCIÓN RÁPIDA Y PROTECCIÓN DE LISTA BLANCA -->
-  <div class="quick-actions-row">
-    <div class="quick-selects">
-      <span class="quick-label">Seleccionar:</span>
-      <button class="small-btn" (click)="scanner.selectByCondition(isVerified)">Verificados</button>
-      <button class="small-btn" (click)="scanner.selectByCondition(isPrivate)">Privados</button>
-      <button class="small-btn" (click)="scanner.selectByCondition(isNoPic)">Sin foto</button>
-      @if (scanner.selectedUsers().length > 0) {
-        <button class="small-btn danger" (click)="scanner.clearSelection()">
-          Limpiar ({{ scanner.selectedUsers().length }})
-        </button>
-      }
+      <button
+        class="tab-btn"
+        [class.active]="scanner.currentTab() === 'whitelisted'"
+        (click)="setTab('whitelisted')"
+      >
+        Lista Blanca ⭐
+        <span class="count-pill">{{ scanner.metrics().whitelisted }}</span>
+      </button>
     </div>
 
-    <!-- Botón de acción masiva sobre lista blanca -->
-    @if (scanner.selectedUsers().length > 0) {
-      <button
-        class="ig-btn-secondary whitelist-action-btn"
-        (click)="handleWhitelistAction()"
+    <!-- Botón para mostrar / esconder filtros -->
+    <button
+      class="toggle-filters-btn"
+      [class.active]="isExpanded()"
+      [class.has-active-filters]="!isExpanded() && activeFiltersCount() > 0"
+      (click)="toggleExpanded()"
+      [title]="isExpanded() ? 'Ocultar barra de filtros para ver más cuentas' : 'Mostrar barra de filtros'"
+    >
+      <svg class="filter-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
+        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+      </svg>
+      <span>{{ isExpanded() ? 'Ocultar' : 'Filtros' }}</span>
+
+      @if (!isExpanded() && activeFiltersCount() > 0) {
+        <span class="filter-badge" title="Filtros aplicados">{{ activeFiltersCount() }}</span>
+      }
+
+      <svg
+        class="chevron-icon"
+        [class.rotated]="isExpanded()"
+        viewBox="0 0 24 24"
+        width="11"
+        height="11"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
       >
-        ⭐ {{ scanner.currentTab() === 'non_whitelisted' ? 'Proteger' : 'Desproteger' }} ({{ scanner.selectedUsers().length }})
-      </button>
-    }
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </button>
   </div>
+
+  <!-- SECCIÓN COLAPSABLE: CHIPS Y ACCIONES RÁPIDAS -->
+  @if (isExpanded()) {
+    <div class="collapsible-content">
+      <!-- CHIPS DE FILTRO RÁPIDO CON CHECKBOXES ESTILIZADOS -->
+      <div class="filter-chips-row">
+        <label class="chip" [class.active]="scanner.filter().showNonFollowers">
+          <input
+            type="checkbox"
+            [checked]="scanner.filter().showNonFollowers"
+            (change)="toggleFilter('showNonFollowers')"
+          />
+          <span>No Me Siguen</span>
+        </label>
+
+        <label class="chip" [class.active]="scanner.filter().showFollowers">
+          <input
+            type="checkbox"
+            [checked]="scanner.filter().showFollowers"
+            (change)="toggleFilter('showFollowers')"
+          />
+          <span>Me Siguen</span>
+        </label>
+
+        <label class="chip" [class.active]="scanner.filter().showVerified">
+          <input
+            type="checkbox"
+            [checked]="scanner.filter().showVerified"
+            (change)="toggleFilter('showVerified')"
+          />
+          <span>Verificados</span>
+        </label>
+
+        <label class="chip" [class.active]="scanner.filter().showPrivate">
+          <input
+            type="checkbox"
+            [checked]="scanner.filter().showPrivate"
+            (change)="toggleFilter('showPrivate')"
+          />
+          <span>Privados</span>
+        </label>
+
+        <label class="chip" [class.active]="scanner.filter().showWithOutProfilePicture">
+          <input
+            type="checkbox"
+            [checked]="scanner.filter().showWithOutProfilePicture"
+            (change)="toggleFilter('showWithOutProfilePicture')"
+          />
+          <span>Sin Foto</span>
+        </label>
+      </div>
+
+      <!-- SELECCIÓN RÁPIDA Y PROTECCIÓN DE LISTA BLANCA -->
+      <div class="quick-actions-row">
+        <div class="quick-selects">
+          <span class="quick-label">Seleccionar:</span>
+          <button class="small-btn" (click)="scanner.selectByCondition(isVerified)">Verificados</button>
+          <button class="small-btn" (click)="scanner.selectByCondition(isPrivate)">Privados</button>
+          <button class="small-btn" (click)="scanner.selectByCondition(isNoPic)">Sin foto</button>
+          @if (scanner.selectedUsers().length > 0) {
+            <button class="small-btn danger" (click)="scanner.clearSelection()">
+              Limpiar ({{ scanner.selectedUsers().length }})
+            </button>
+          }
+        </div>
+
+        <!-- Botón de acción masiva sobre lista blanca -->
+        @if (scanner.selectedUsers().length > 0) {
+          <button
+            class="ig-btn-secondary whitelist-action-btn"
+            (click)="handleWhitelistAction()"
+          >
+            ⭐ {{ scanner.currentTab() === 'non_whitelisted' ? 'Proteger' : 'Desproteger' }} ({{ scanner.selectedUsers().length }})
+          </button>
+        }
+      </div>
+    </div>
+  }
 </div>

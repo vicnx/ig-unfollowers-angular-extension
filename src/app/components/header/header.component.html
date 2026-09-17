@@ -10,7 +10,12 @@
         </svg>
       </div>
       <div class="brand-text">
-        <span class="title">¿Quién me dejó de seguir?</span>
+        <div class="title-row">
+          <span class="title">¿Quién me dejó de seguir?</span>
+          @if (scanner.isMockMode()) {
+            <span class="mock-pill" (click)="openSettings.emit()" title="Modo de Prueba activo (Mock Data). Haz clic para abrir ajustes.">🧪 Modo Prueba</span>
+          }
+        </div>
         <span class="subtitle">Instagram Unfollowers</span>
       </div>
     </div>

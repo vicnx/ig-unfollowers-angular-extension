@@ -6,14 +6,27 @@
   background: var(--ig-surface);
   border-bottom: 1px solid var(--ig-border);
   flex-shrink: 0;
-  transition: background-color 0.25s ease;
+  transition: background-color 0.25s ease, padding 0.25s ease, gap 0.25s ease;
+
+  &.collapsed {
+    padding-top: 7px;
+    padding-bottom: 7px;
+    gap: 0;
+  }
 }
 
 .tabs-row {
   display: flex;
+  align-items: center;
   gap: 8px;
   border-bottom: 1px solid var(--ig-border-light);
   padding-bottom: 8px;
+
+  .tabs-group {
+    display: flex;
+    flex: 1;
+    gap: 8px;
+  }
 
   .tab-btn {
     flex: 1;
@@ -54,10 +67,17 @@
   }
 }
 
+.collapsible-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
 .filter-chips-row {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
+  padding-bottom: 8px;
 
   .chip {
     display: inline-flex;
@@ -102,6 +122,8 @@
   justify-content: space-between;
   gap: 8px;
   flex-wrap: wrap;
+  padding-top: 8px;
+  border-top: 1px solid var(--ig-border-light);
 
   .quick-selects {
     display: flex;
@@ -156,4 +178,70 @@
       border-color: rgba(255, 215, 0, 0.5);
     }
   }
+}
+
+// ── Botón mostrar/ocultar filtros ────────────────────────────────────────────
+.toggle-filters-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+  padding: 5px 10px;
+  border-radius: var(--ig-radius-md);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ig-text-secondary);
+  background: var(--ig-btn-secondary-bg);
+  border: 1px solid var(--ig-btn-secondary-border);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+
+  &:hover {
+    color: var(--ig-text-primary);
+    background: var(--ig-surface-hover);
+    border-color: var(--ig-border);
+  }
+
+  &.active {
+    color: var(--ig-blue);
+    background: rgba(0, 149, 246, 0.08);
+    border-color: rgba(0, 149, 246, 0.3);
+  }
+
+  &.has-active-filters {
+    color: var(--ig-blue);
+    border-color: rgba(0, 149, 246, 0.5);
+    background: rgba(0, 149, 246, 0.12);
+  }
+
+  .filter-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    border-radius: var(--ig-radius-full);
+    font-size: 9px;
+    font-weight: 700;
+    background: var(--ig-blue);
+    color: #fff;
+    line-height: 1;
+  }
+
+  .chevron-icon {
+    transition: transform 0.25s ease;
+
+    &.rotated {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+// Cuando los filtros están ocultos, quitamos el borde inferior del tabs-row
+// (ya que no hay contenido colapsable debajo)
+.filters-bar-container.collapsed .tabs-row {
+  border-bottom: none;
+  padding-bottom: 0;
 }

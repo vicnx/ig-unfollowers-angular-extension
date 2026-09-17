@@ -4,17 +4,23 @@
     <div class="launch-card">
       <div class="launch-glow"></div>
       <div class="launch-content">
-        <div class="launch-pill">
+        <div class="launch-pill" [class.mock]="scanner.isMockMode()">
           <span class="pill-dot"></span>
-          Auditoría Segura
+          {{ scanner.isMockMode() ? 'Modo Prueba Activo' : 'Auditoría Segura' }}
         </div>
         <h3>¿Quién no te sigue de vuelta?</h3>
-        <p>Compara tus seguidos con tus seguidores en Instagram mediante pausas humanas anti-bloqueo.</p>
+        <p>
+          @if (scanner.isMockMode()) {
+            Modo de prueba simulado activado con datos mock. Puedes escanear de forma simulada para realizar capturas de pantalla de la guía sin riesgos.
+          } @else {
+            Compara tus seguidos con tus seguidores en Instagram mediante pausas humanas anti-bloqueo.
+          }
+        </p>
         <button class="ig-btn-primary launch-btn" (click)="scanner.startScan()">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
             <polygon points="5 3 19 12 5 21 5 3"></polygon>
           </svg>
-          Comenzar Auditoría
+          {{ scanner.isMockMode() ? 'Comenzar Auditoría (Mock)' : 'Comenzar Auditoría' }}
         </button>
       </div>
     </div>

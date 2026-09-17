@@ -156,6 +156,89 @@
           </label>
         </div>
       </div>
+
+      <hr class="divider" />
+
+      <!-- SECCIÓN 3: MODO DE PRUEBA / CAPTURAS (DATOS MOCK) -->
+      <div class="settings-section mock-section">
+        <div class="section-header-row">
+          <div class="section-title-wrap">
+            <h4 class="section-title">🧪 Modo de Prueba (Datos Mock)</h4>
+            <span class="sub-hint">Para realizar capturas y pruebas de la guía sin tocar tu Instagram</span>
+          </div>
+          <span class="mock-badge" [class.active]="scanner.isMockMode()">
+            {{ scanner.isMockMode() ? 'ACTIVO' : 'INACTIVO' }}
+          </span>
+        </div>
+
+        <p class="section-desc">
+          Carga un conjunto de cuentas ficticias aleatorizadas (con avatares SVG, usuarios verificados, cuentas privadas y seguidores mutuos) directamente de un mock JSON para verificar filtros y sacar capturas seguras.
+        </p>
+
+        <!-- Interruptor de alternancia -->
+        <div class="form-row toggle-row">
+          <div class="label-group">
+            <label>Habilitar Modo de Prueba:</label>
+            <span class="row-hint">Simula escaneos y acciones sin realizar peticiones de red</span>
+          </div>
+          <label class="switch-toggle" title="Alternar Modo de Prueba">
+            <input
+              type="checkbox"
+              [checked]="scanner.isMockMode()"
+              (change)="onToggleMockMode($event)"
+            />
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+
+        @if (scanner.isMockMode()) {
+          <div class="mock-alert-box">
+            🛡️ <strong>Modo Simulado:</strong> El escáner y el gestor de unfollow operan con datos mock ficticios. No se realizarán peticiones reales a los servidores de Meta.
+          </div>
+        }
+
+        <!-- Botones de Acción Mock -->
+        <div class="mock-buttons-grid">
+          <button
+            class="ig-btn-secondary load-mock-btn"
+            (click)="onLoadDefaultMock()"
+            title="Cargar 30 cuentas de prueba inmediatamente y ver resultados"
+          >
+            🎲 Cargar Mock (30 cuentas)
+          </button>
+
+          @if (scanner.isMockMode()) {
+            <button
+              class="ig-btn-secondary"
+              (click)="onRegenerateRandomMock()"
+              title="Generar nuevos nombres y combinaciones aleatorias"
+            >
+              🔄 Nuevos Nombres
+            </button>
+
+            <button
+              class="ig-btn-secondary"
+              (click)="onExportMockJson()"
+              title="Descargar las cuentas de prueba en formato JSON"
+            >
+              📥 Exportar JSON
+            </button>
+
+            <label class="ig-btn-secondary file-upload-btn" title="Cargar archivo JSON con usuarios de prueba">
+              📤 Cargar JSON
+              <input type="file" accept=".json" (change)="onImportMockFile($event)" style="display: none;" />
+            </label>
+
+            <button
+              class="ig-btn-secondary danger"
+              (click)="onExitMockMode()"
+              title="Desactivar modo prueba y volver al estado real"
+            >
+              ✕ Salir de Modo Prueba
+            </button>
+          }
+        </div>
+      </div>
     </div>
 
     <!-- Pie del modal con acciones de Guardar / Cancelar -->

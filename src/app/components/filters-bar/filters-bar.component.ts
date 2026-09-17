@@ -1,12 +1,14 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { ScannerService } from '../../services/scanner.service';
+import { StorageService } from '../../services/storage.service';
 import { ScanningFilter, ScanningTab } from '../../models/filters.model';
 import { UserNode } from '../../models/user.model';
 
 /**
  * Componente FiltersBar:
  * Ofrece la navegación por pestañas (No-Seguidores vs Lista Blanca),
- * selección de filtros con checkboxes estilizados y atajos de selección masiva.
+ * selección de filtros con checkboxes estilizados, atajos de selección masiva
+ * y botón para contraer/expandir la sección de filtros para maximizar el área de scroll.
  */
 @Component({
   selector: 'app-filters-bar',
@@ -17,11 +19,42 @@ import { UserNode } from '../../models/user.model';
 })
 export class FiltersBarComponent {
   readonly scanner = inject(ScannerService);
+  private readonly storage = inject(StorageService);
+
+  // Estado de visibilidad de los filtros (para maximizar el espacio de la lista)
+  readonly isExpanded = signal<boolean>(true);
+
+  // Número de filtros activos que modifican la vista por defecto
+  readonly activeFiltersCount = computed(() => {
+    const f = this.scanner.filter();
+    let count = 0;
+    if (!f.showNonFollowers) count++;
+    if (f.showFollowers) count++;
+    if (!f.showVerified) count++;
+    if (!f.showPrivate) count++;
+    if (!f.showWithOutProfilePicture) count++;
+    return count;
+  });
 
   // Funciones de predicado para selección rápida
   readonly isVerified = (u: UserNode): boolean => u.is_verified;
   readonly isPrivate = (u: UserNode): boolean => u.is_private;
   readonly isNoPic = (u: UserNode): boolean => this.scanner['api'].isWithoutProfilePicture(u);
+
+  constructor() {
+    this.storage.get<boolean>('iu_filters_expanded', true).then((saved) => {
+      this.isExpanded.set(saved);
+    });
+  }
+
+  /**
+   * Alterna la visibilidad del panel de filtros y recuerda la preferencia del usuario.
+   */
+  toggleExpanded(): void {
+    const next = !this.isExpanded();
+    this.isExpanded.set(next);
+    this.storage.set('iu_filters_expanded', next);
+  }
 
   /**
    * Cambia de pestaña activa y restablece a la página 1.

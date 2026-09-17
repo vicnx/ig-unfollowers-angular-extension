@@ -64,4 +64,54 @@ export class SettingsModalComponent {
     }
     input.value = '';
   }
+
+  /**
+   * Manejador de alternancia del modo de prueba (Mock Data).
+   */
+  onToggleMockMode(event: Event): void {
+    const checkbox = event.target as HTMLInputElement;
+    this.scanner.setMockMode(checkbox.checked, true);
+  }
+
+  /**
+   * Carga inmediatamente las cuentas mock y cierra el modal para ver resultados.
+   */
+  onLoadDefaultMock(): void {
+    this.scanner.setMockMode(true, true);
+    this.close.emit();
+  }
+
+  /**
+   * Regenera la lista mock con nombres y combinaciones aleatorias.
+   */
+  onRegenerateRandomMock(): void {
+    this.scanner.regenerateRandomMock();
+  }
+
+  /**
+   * Exporta las cuentas mock en formato JSON descargable.
+   */
+  onExportMockJson(): void {
+    this.scanner.exportMockJson();
+  }
+
+  /**
+   * Importa un archivo JSON personalizado con usuarios mock.
+   */
+  onImportMockFile(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (file) {
+      this.scanner.importCustomMockJson(file);
+      this.close.emit();
+    }
+    input.value = '';
+  }
+
+  /**
+   * Desactiva el modo de prueba y restablece el estado real.
+   */
+  onExitMockMode(): void {
+    this.scanner.setMockMode(false);
+  }
 }

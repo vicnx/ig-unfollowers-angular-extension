@@ -12,12 +12,14 @@ import {
   UNFOLLOWERS_PER_PAGE,
 } from '../constants/instagram.constants';
 import { IntegrityService } from '../core/security/integrity.service';
+import { DEFAULT_MOCK_USERS, generateRandomizedMockUsers } from '../constants/mock-users.constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ScannerService {
   // Reactive Signals State
+  readonly isMockMode = signal<boolean>(false);
   readonly status = signal<AppStatus>('initial');
   readonly percentage = signal<number>(0);
   readonly allResults = signal<UserNode[]>([]);
@@ -128,9 +130,17 @@ export class ScannerService {
   }
 
   private async initFromStorage(): Promise<void> {
-    const [whitelist, timings] = await Promise.all([this.storage.loadWhitelist(), this.storage.loadTimings()]);
+    const [whitelist, timings, mockMode] = await Promise.all([
+      this.storage.loadWhitelist(),
+      this.storage.loadTimings(),
+      this.storage.loadMockMode(),
+    ]);
     this.whitelistedUsers.set(whitelist);
     this.timings.set(timings);
+    this.isMockMode.set(mockMode);
+    if (mockMode) {
+      this.loadMockUsers(false);
+    }
   }
 
   showToast(text: string, type: 'info' | 'warning' | 'success' | 'error' = 'info', duration = 4000): void {
@@ -160,6 +170,27 @@ export class ScannerService {
     const integrityCheck = this.integrity.validateExecutionIntegrity();
     if (!integrityCheck.allowed) {
       this.showToast(integrityCheck.reason || 'Error de integridad del sistema.', 'error', 6000);
+      return;
+    }
+
+    // Si el modo prueba está activo, simular la auditoría sin peticiones a Instagram
+    if (this.isMockMode()) {
+      this.status.set('scanning');
+      this.percentage.set(0);
+      this.selectedUsers.set([]);
+      this.isPaused.set(false);
+
+      const simulationSteps = [20, 45, 70, 90, 100];
+      for (const stepProgress of simulationSteps) {
+        await this.api.sleep(250);
+        while (this.isPaused()) {
+          await this.api.sleep(300);
+        }
+        this.percentage.set(stepProgress);
+      }
+
+      this.loadMockUsers(false);
+      this.showToast(`🧪 ¡Auditoría de prueba completada! Se cargaron ${this.allResults().length} cuentas mock.`, 'success');
       return;
     }
 
@@ -387,6 +418,37 @@ export class ScannerService {
       return;
     }
 
+    if (this.isMockMode()) {
+      if (!confirm(`[MODO PRUEBA] ¿Deseas simular el proceso de unfollow para ${toUnfollow.length} cuenta(s) de prueba?`)) {
+        return;
+      }
+
+      this.status.set('unfollowing');
+      this.percentage.set(0);
+      this.unfollowLog.set([]);
+      this.isPaused.set(false);
+
+      let counter = 0;
+      for (const user of toUnfollow) {
+        counter++;
+        while (this.isPaused()) {
+          await this.api.sleep(300);
+        }
+        await this.api.sleep(500);
+
+        const entry: UnfollowLogEntry = {
+          user,
+          unfollowedSuccessfully: true,
+          timestamp: Date.now(),
+        };
+        this.unfollowLog.update((log) => [entry, ...log]);
+        this.percentage.set(Math.round((counter / toUnfollow.length) * 100));
+      }
+
+      this.showToast('🧪 Simulación de unfollow completada con éxito en modo prueba.', 'success');
+      return;
+    }
+
     if (!confirm(`¿Estás seguro de que quieres dejar de seguir a ${toUnfollow.length} cuenta(s)? Esta acción no se puede deshacer.`)) {
       return;
     }
@@ -490,6 +552,67 @@ export class ScannerService {
   goToPage(page: number): void {
     if (page >= 1 && page <= this.totalPages()) {
       this.currentPage.set(page);
+    }
+  }
+
+  // ==========================================
+  // MODO DE PRUEBA / CAPTURAS (MOCK DATA)
+  // ==========================================
+
+  async setMockMode(enabled: boolean, loadImmediately = true): Promise<void> {
+    this.isMockMode.set(enabled);
+    await this.storage.saveMockMode(enabled);
+
+    if (enabled) {
+      if (loadImmediately) {
+        this.loadMockUsers(true);
+      }
+    } else {
+      this.allResults.set([]);
+      this.selectedUsers.set([]);
+      this.status.set('initial');
+      this.percentage.set(0);
+      this.showToast('Modo de prueba desactivado. Estado real restablecido.', 'info');
+    }
+  }
+
+  loadMockUsers(showToastNotification = true, customList?: UserNode[]): void {
+    const list = customList ?? DEFAULT_MOCK_USERS;
+    const followerIds = new Set<string>();
+    for (const u of list) {
+      if (u.follows_viewer) {
+        followerIds.add(u.id);
+      }
+    }
+    this.followerIds.set(followerIds);
+    this.allResults.set(list);
+    this.percentage.set(100);
+    this.status.set('scanning');
+    this.currentPage.set(1);
+
+    if (showToastNotification) {
+      this.showToast(`🧪 Modo Prueba: ${list.length} cuentas cargadas con éxito.`, 'success');
+    }
+  }
+
+  regenerateRandomMock(): void {
+    const randomUsers = generateRandomizedMockUsers(30);
+    this.loadMockUsers(true, randomUsers);
+    this.showToast('🧪 ¡Nueva lista aleatoria generada con éxito!', 'success');
+  }
+
+  exportMockJson(): void {
+    const users = this.allResults().length > 0 ? this.allResults() : DEFAULT_MOCK_USERS;
+    this.storage.exportUsersAsJson(users, 'mock-instagram-users.json');
+  }
+
+  async importCustomMockJson(file: File): Promise<void> {
+    try {
+      const users = await this.storage.importWhitelistFromJson(file, [], 'replace');
+      await this.setMockMode(true, false);
+      this.loadMockUsers(true, users);
+    } catch (err: any) {
+      this.showToast(`Error al importar JSON mock: ${err.message}`, 'error');
     }
   }
 }

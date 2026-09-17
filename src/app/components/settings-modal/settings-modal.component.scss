@@ -233,6 +233,123 @@
   }
 }
 
+.mock-section {
+  .mock-badge {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 3px 8px;
+    border-radius: var(--ig-radius-full);
+    color: var(--ig-text-tertiary);
+    background: var(--ig-surface-hover);
+    border: 1px solid var(--ig-border);
+    transition: all 0.2s ease;
+
+    &.active {
+      color: #ffffff;
+      background: var(--ig-gradient);
+      border-color: transparent;
+      box-shadow: 0 2px 8px rgba(220, 39, 67, 0.35);
+    }
+  }
+
+  .switch-toggle {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+    cursor: pointer;
+    flex-shrink: 0;
+
+    input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+
+      &:checked + .toggle-track {
+        background: var(--ig-blue);
+      }
+
+      &:checked + .toggle-track::before {
+        transform: translateX(20px);
+      }
+    }
+
+    .toggle-track {
+      position: absolute;
+      inset: 0;
+      background: var(--ig-btn-secondary-border);
+      border-radius: 34px;
+      transition: all 0.25s ease;
+
+      &::before {
+        content: '';
+        position: absolute;
+        height: 18px;
+        width: 18px;
+        left: 3px;
+        bottom: 3px;
+        background: #ffffff;
+        border-radius: 50%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        transition: all 0.25s ease;
+      }
+    }
+  }
+
+  .mock-alert-box {
+    background: rgba(0, 149, 246, 0.08);
+    border: 1px solid rgba(0, 149, 246, 0.25);
+    border-radius: var(--ig-radius-md);
+    padding: 10px 12px;
+    font-size: 11px;
+    color: var(--ig-text-primary);
+    line-height: 1.45;
+
+    strong {
+      color: var(--ig-blue);
+    }
+  }
+
+  .mock-buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+
+    button, .file-upload-btn {
+      justify-content: center;
+      font-size: 11px;
+      padding: 8px 10px;
+      text-align: center;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .load-mock-btn {
+      grid-column: span 2;
+      background: var(--ig-btn-secondary-bg);
+      border: 1px solid var(--ig-blue);
+      color: var(--ig-blue);
+
+      &:hover {
+        background: rgba(0, 149, 246, 0.12);
+        transform: translateY(-1px);
+      }
+    }
+
+    .danger {
+      grid-column: span 2;
+      color: var(--ig-danger);
+      border-color: rgba(237, 73, 86, 0.35);
+
+      &:hover {
+        background: rgba(237, 73, 86, 0.12);
+        border-color: var(--ig-danger);
+      }
+    }
+  }
+}
+
 .modal-footer {
   padding: 12px 18px;
   border-top: 1px solid var(--ig-border-light);

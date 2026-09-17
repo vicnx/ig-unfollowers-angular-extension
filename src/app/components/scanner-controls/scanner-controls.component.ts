@@ -23,6 +23,9 @@ export class ScannerControlsComponent {
   readonly statusLabel = computed(() => {
     const status = this.scanner.status();
     if (status === 'scanning') {
+      if (this.scanner.percentage() >= 100) {
+        return this.scanner.isMockMode() ? 'Prueba completada (Mock)' : 'Auditoría completada';
+      }
       return this.scanner.isPaused() ? 'Escaneo pausado' : 'Escaneando cuentas...';
     }
     if (status === 'unfollowing') {
