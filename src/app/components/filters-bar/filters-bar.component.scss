@@ -6,6 +6,7 @@
   background: var(--ig-surface);
   border-bottom: 1px solid var(--ig-border);
   flex-shrink: 0;
+  transition: background-color 0.25s ease;
 }
 
 .tabs-row {
@@ -25,26 +26,30 @@
     align-items: center;
     justify-content: center;
     gap: 6px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid transparent;
+    background: var(--ig-btn-secondary-bg);
+    border: 1px solid var(--ig-btn-secondary-border);
+    cursor: pointer;
     transition: all 0.2s ease;
 
     &.active {
-      color: #ffffff;
-      background: rgba(255, 255, 255, 0.1);
+      color: var(--ig-text-primary);
+      background: var(--ig-surface-hover);
       border-color: var(--ig-border);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
 
     &:hover:not(.active) {
-      background: rgba(255, 255, 255, 0.06);
-      color: #ffffff;
+      background: var(--ig-surface-hover);
+      color: var(--ig-text-primary);
     }
 
     .count-pill {
       padding: 1px 6px;
       border-radius: var(--ig-radius-full);
       font-size: 10px;
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(0, 149, 246, 0.15);
+      color: var(--ig-blue);
+      font-weight: 700;
     }
   }
 }
@@ -62,7 +67,7 @@
     font-weight: 500;
     padding: 4px 10px;
     border-radius: var(--ig-radius-full);
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--ig-surface-card);
     border: 1px solid var(--ig-border-light);
     color: var(--ig-text-secondary);
     cursor: pointer;
@@ -73,17 +78,20 @@
       width: 14px;
       height: 14px;
       border-radius: 3px;
+      cursor: pointer;
     }
 
     &.active {
-      color: #ffffff;
-      background: rgba(0, 149, 246, 0.12);
+      color: var(--ig-blue);
+      background: rgba(0, 149, 246, 0.1);
       border-color: rgba(0, 149, 246, 0.35);
+      font-weight: 600;
     }
 
     &:hover:not(.active) {
-      background: rgba(255, 255, 255, 0.08);
-      color: #ffffff;
+      background: var(--ig-surface-hover);
+      color: var(--ig-text-primary);
+      border-color: var(--ig-border);
     }
   }
 }
@@ -111,23 +119,25 @@
       font-size: 11px;
       padding: 3px 8px;
       border-radius: var(--ig-radius-sm);
-      background: rgba(255, 255, 255, 0.06);
+      background: var(--ig-btn-secondary-bg);
       color: var(--ig-text-secondary);
-      border: 1px solid var(--ig-border-light);
+      border: 1px solid var(--ig-btn-secondary-border);
+      cursor: pointer;
       transition: all 0.15s ease;
 
       &:hover {
-        color: #ffffff;
-        background: rgba(255, 255, 255, 0.12);
+        color: var(--ig-text-primary);
+        background: var(--ig-surface-hover);
+        border-color: var(--ig-border);
       }
 
       &.danger {
-        color: #ff758c;
+        color: var(--ig-danger);
         border-color: rgba(237, 73, 86, 0.3);
-        background: rgba(237, 73, 86, 0.1);
+        background: rgba(237, 73, 86, 0.08);
 
         &:hover {
-          background: rgba(237, 73, 86, 0.2);
+          background: rgba(237, 73, 86, 0.18);
         }
       }
     }
@@ -139,9 +149,11 @@
     color: var(--ig-gold);
     border-color: rgba(255, 215, 0, 0.3);
     background: rgba(255, 215, 0, 0.08);
+    cursor: pointer;
 
     &:hover {
-      background: rgba(255, 215, 0, 0.16);
+      background: rgba(255, 215, 0, 0.18);
+      border-color: rgba(255, 215, 0, 0.5);
     }
   }
 }

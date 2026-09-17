@@ -3,7 +3,7 @@
   visibility: visible !important;
   opacity: 1 !important;
   padding: 8px 16px;
-  background: rgba(14, 14, 14, 0.95);
+  background: var(--ig-header-bg);
   border-top: 1px solid var(--ig-border);
   backdrop-filter: blur(12px);
   flex-shrink: 0;
@@ -39,6 +39,8 @@
   transition: all 0.2s ease;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--ig-border-light);
+  text-decoration: none !important;
+  cursor: pointer;
 
   .gh-icon {
     color: var(--ig-text-secondary);

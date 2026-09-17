@@ -30,4 +30,6 @@ export const STORAGE_KEYS = {
   WHITELIST: 'iu_whitelisted_results',
   TIMINGS: 'iu_timings',
   LAST_SCAN: 'iu_last_scan',
+  THEME: 'iu_theme',
+  WELCOME_SEEN: 'iu_welcome_seen',
 };

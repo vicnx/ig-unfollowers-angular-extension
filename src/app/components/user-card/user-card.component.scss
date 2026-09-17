@@ -39,8 +39,9 @@
     height: 100%;
     border-radius: var(--ig-radius-full);
     object-fit: cover;
-    background: #262626;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: var(--ig-surface-hover);
+    border: 1px solid var(--ig-border-light);
+    transition: transform 0.2s ease;
   }
 
   .star-overlay {
@@ -56,8 +57,14 @@
     }
   }
 
-  &:hover .star-overlay {
-    opacity: 1;
+  &:hover {
+    .avatar {
+      transform: scale(1.05);
+    }
+
+    .star-overlay {
+      opacity: 1;
+    }
   }
 }
 
@@ -80,6 +87,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      cursor: pointer;
 
       &:hover {
         text-decoration: underline;
@@ -96,7 +104,8 @@
       font-size: 9px;
       font-weight: 600;
       color: var(--ig-text-tertiary);
-      background: rgba(255, 255, 255, 0.06);
+      background: var(--ig-btn-secondary-bg);
+      border: 1px solid var(--ig-btn-secondary-border);
       padding: 1px 5px;
       border-radius: var(--ig-radius-sm);
     }
@@ -118,12 +127,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
   transition: all 0.2s ease;
 
   &:hover {
     color: var(--ig-gold);
-    background: rgba(255, 215, 0, 0.1);
-    transform: scale(1.1);
+    background: rgba(255, 215, 0, 0.12);
+    transform: scale(1.15);
   }
 
   &.active {

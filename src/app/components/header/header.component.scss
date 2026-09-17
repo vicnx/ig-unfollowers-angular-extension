@@ -1,12 +1,13 @@
 .app-header {
-  padding: 14px 16px;
-  background: rgba(18, 18, 18, 0.95);
+  padding: 12px 16px;
+  background: var(--ig-header-bg);
   border-bottom: 1px solid var(--ig-border);
   backdrop-filter: blur(12px);
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   flex-shrink: 0;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
 }
 
 .header-top {
@@ -22,8 +23,8 @@
 }
 
 .ig-logo-icon {
-  width: 34px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
   border-radius: var(--ig-radius-md);
   background: var(--ig-gradient);
   display: flex;
@@ -31,6 +32,7 @@
   justify-content: center;
   color: #ffffff;
   box-shadow: 0 4px 12px rgba(220, 39, 67, 0.35);
+  flex-shrink: 0;
 }
 
 .brand-text {
@@ -39,7 +41,7 @@
 
   .title {
     font-weight: 700;
-    font-size: 14px;
+    font-size: 13px;
     letter-spacing: -0.3px;
     background: var(--ig-gradient);
     -webkit-background-clip: text;
@@ -47,9 +49,9 @@
   }
 
   .subtitle {
-    font-size: 11px;
+    font-size: 10px;
     color: var(--ig-text-secondary);
-    font-weight: 500;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
@@ -58,23 +60,26 @@
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
 }
 
 .icon-btn {
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   border-radius: var(--ig-radius-full);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--ig-text-secondary);
-  background: rgba(255, 255, 255, 0.05);
-  transition: all 0.2s ease;
+  background: var(--ig-btn-secondary-bg);
+  border: 1px solid var(--ig-btn-secondary-border);
+  cursor: pointer;
+  transition: all 0.15s ease;
 
   &:hover:not(:disabled) {
-    color: #ffffff;
-    background: rgba(255, 255, 255, 0.12);
+    color: var(--ig-text-primary);
+    background: var(--ig-surface-hover);
+    border-color: var(--ig-border);
     transform: translateY(-1px);
   }
 
@@ -83,9 +88,18 @@
     cursor: not-allowed;
   }
 
+  &.theme-toggle-btn:hover {
+    color: var(--ig-gold);
+  }
+
+  &.info-btn:hover {
+    color: var(--ig-blue);
+  }
+
   &.close-btn:hover {
     color: var(--ig-danger);
-    background: rgba(237, 73, 86, 0.15);
+    background: rgba(237, 73, 86, 0.12);
+    border-color: rgba(237, 73, 86, 0.3);
   }
 }
 
@@ -104,14 +118,21 @@
 
   input {
     width: 100%;
-    padding: 8px 32px 8px 36px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid var(--ig-border);
+    padding: 7px 32px 7px 34px;
+    background: var(--ig-input-bg);
+    border: 1px solid var(--ig-input-border);
     border-radius: var(--ig-radius-full);
     font-size: 12px;
+    color: var(--ig-text-primary);
+    transition: all 0.2s ease;
 
     &::placeholder {
-      color: var(--ig-text-tertiary);
+      color: var(--ig-input-placeholder);
+    }
+
+    &:focus {
+      border-color: var(--ig-blue);
+      box-shadow: 0 0 0 2px rgba(0, 149, 246, 0.18);
     }
   }
 
@@ -120,10 +141,16 @@
     right: 10px;
     color: var(--ig-text-tertiary);
     font-size: 12px;
-    padding: 4px;
+    padding: 3px 6px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &:hover {
-      color: #ffffff;
+      color: var(--ig-text-primary);
+      background: var(--ig-surface-hover);
     }
   }
 }

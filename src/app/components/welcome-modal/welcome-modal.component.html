@@ -1,0 +1,96 @@
+<div class="modal-backdrop" (click)="onDismiss()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+    <!-- Cabecera del modal -->
+    <div class="modal-header">
+      <div class="brand-badge">
+        <div class="ig-icon">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+        </div>
+        <div class="header-titles">
+          <h3>¿Quién me dejó de seguir?</h3>
+          <span class="secure-tag">🔒 100% Client-Side & Seguro</span>
+        </div>
+      </div>
+      <button class="close-btn" (click)="onDismiss()" title="Cerrar">✕</button>
+    </div>
+
+    <!-- Contenido Informativo -->
+    <div class="modal-body">
+      <p class="welcome-intro">
+        Bienvenido a la extensión para auditoría de seguidores en Instagram. Antes de comenzar, queremos que conozcas cómo protegemos tu cuenta y tu privacidad:
+      </p>
+
+      <div class="info-cards-list">
+        <!-- Tarjeta 1: Cero contraseñas -->
+        <div class="info-card">
+          <div class="card-icon security">🔑</div>
+          <div class="card-content">
+            <h4>Sin Acceso a Contraseñas</h4>
+            <p>
+              La extensión <strong>jamás solicita, almacena ni envía tu contraseña</strong> ni credenciales a servidores remotos. Opera 100% en tu navegador aprovechando tu sesión actual y segura de Instagram.
+            </p>
+          </div>
+        </div>
+
+        <!-- Tarjeta 2: Tiempos anti-bloqueo predeterminados -->
+        <div class="info-card">
+          <div class="card-icon timing">⏱️</div>
+          <div class="card-content">
+            <h4>Pausas de Seguridad Anti-Bloqueo</h4>
+            <p>
+              Para proteger tu cuenta de restricciones de Meta, el escáner y la cola de unfollow están configurados por defecto con pausas humanas:
+            </p>
+            <ul class="timing-bullets">
+              <li><strong>1 segundo</strong> entre peticiones de búsqueda.</li>
+              <li><strong>10 segundos</strong> de pausa de descanso cada 5 peticiones.</li>
+              <li><strong>4 segundos</strong> entre cada unfollow.</li>
+              <li><strong>300 segundos (5 minutos)</strong> de pausa larga cada 5 bajas.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Tarjeta 3: Lista Blanca -->
+        <div class="info-card">
+          <div class="card-icon star">⭐</div>
+          <div class="card-content">
+            <h4>Protección con Lista Blanca</h4>
+            <p>
+              Haz clic en la estrella de cualquier usuario para agregarlo a tu Lista Blanca. Esas cuentas quedan blindadas y nunca se seleccionarán por error al dejar de seguir.
+            </p>
+          </div>
+        </div>
+
+        <!-- Tarjeta 4: Ajustes en segundos -->
+        <div class="info-card">
+          <div class="card-icon settings">⚙️</div>
+          <div class="card-content">
+            <h4>Control Total en Segundos</h4>
+            <p>
+              En el icono de <strong>Ajustes ⚙️</strong> puedes personalizar todos los tiempos en segundos a tu gusto y guardar copias de seguridad en formato JSON.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pie del modal -->
+    <div class="modal-footer">
+      <label class="dont-show-checkbox">
+        <input
+          type="checkbox"
+          [checked]="dontShowAgain()"
+          (change)="dontShowAgain.set(!dontShowAgain())"
+        />
+        <span>No volver a mostrar este mensaje al iniciar</span>
+      </label>
+
+      <button class="ig-btn-primary start-btn" (click)="onDismiss()">
+        ¡Entendido, Comenzar! 🚀
+      </button>
+    </div>
+  </div>
+</div>

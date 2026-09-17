@@ -1,11 +1,10 @@
 import { Component, output, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ScannerService } from '../../services/scanner.service';
-import { Timings } from '../../models/timings.model';
 
 /**
  * Componente SettingsModal:
- * Permite ajustar los tiempos de pausa anti-bloqueo de Instagram
+ * Permite ajustar los tiempos de pausa anti-bloqueo de Instagram (expresados en segundos para el usuario)
  * y gestionar la importación, exportación y limpieza de la Lista Blanca protegida.
  * Utiliza output() de Angular 18.
  */
@@ -22,15 +21,35 @@ export class SettingsModalComponent {
   // Output moderno con Angular 18 output()
   readonly close = output<void>();
 
-  // Copia local de los tiempos para editar antes de guardar
-  formTimings: Timings = { ...this.scanner.timings() };
+  // Tiempos expresados en SEGUNDOS para una experiencia clara e intuitiva
+  secondsTimings = {
+    timeBetweenSearchCycles: Math.round(this.scanner.timings().timeBetweenSearchCycles / 100) / 10,
+    timeToWaitAfterFiveSearchCycles: Math.round(this.scanner.timings().timeToWaitAfterFiveSearchCycles / 1000),
+    timeBetweenUnfollows: Math.round(this.scanner.timings().timeBetweenUnfollows / 100) / 10,
+    timeToWaitAfterFiveUnfollows: Math.round(this.scanner.timings().timeToWaitAfterFiveUnfollows / 1000),
+    usersPerSearchCycle: this.scanner.timings().usersPerSearchCycle,
+  };
+
   importMode: 'merge' | 'replace' = 'merge';
 
   /**
-   * Guarda los nuevos tiempos en chrome.storage.local y actualiza el servicio.
+   * Guarda los nuevos tiempos convirtiendo de segundos a milisegundos internamente.
    */
   saveSettings(): void {
-    this.scanner.updateTimings(this.formTimings);
+    const timeBetweenSearchCycles = Math.max(500, Math.round(this.secondsTimings.timeBetweenSearchCycles * 1000));
+    const timeToWaitAfterFiveSearchCycles = Math.max(2000, Math.round(this.secondsTimings.timeToWaitAfterFiveSearchCycles * 1000));
+    const timeBetweenUnfollows = Math.max(1000, Math.round(this.secondsTimings.timeBetweenUnfollows * 1000));
+    const timeToWaitAfterFiveUnfollows = Math.max(10000, Math.round(this.secondsTimings.timeToWaitAfterFiveUnfollows * 1000));
+    const usersPerSearchCycle = Math.max(10, Math.min(100, Math.round(this.secondsTimings.usersPerSearchCycle)));
+
+    this.scanner.updateTimings({
+      timeBetweenSearchCycles,
+      timeToWaitAfterFiveSearchCycles,
+      timeBetweenUnfollows,
+      timeToWaitAfterFiveUnfollows,
+      usersPerSearchCycle,
+    });
+
     this.close.emit();
   }
 

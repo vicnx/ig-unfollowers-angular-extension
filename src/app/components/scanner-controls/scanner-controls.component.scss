@@ -6,6 +6,7 @@
   background: var(--ig-bg);
   border-bottom: 1px solid var(--ig-border);
   flex-shrink: 0;
+  transition: background-color 0.25s ease;
 }
 
 .launch-card {
@@ -21,7 +22,7 @@
     align-items: center;
     gap: 6px;
     padding: 3px 10px;
-    background: rgba(220, 39, 67, 0.2);
+    background: rgba(220, 39, 67, 0.18);
     color: #ff758c;
     border-radius: var(--ig-radius-full);
     font-size: 10px;
@@ -41,7 +42,7 @@
     font-size: 16px;
     font-weight: 700;
     margin-bottom: 6px;
-    color: #ffffff;
+    color: var(--ig-text-primary);
   }
 
   p {
@@ -55,6 +56,7 @@
     width: 100%;
     padding: 10px 18px;
     font-size: 13px;
+    cursor: pointer;
   }
 }
 
@@ -104,14 +106,15 @@
   .percent-label {
     font-weight: 700;
     font-size: 14px;
-    color: #ffffff;
+    color: var(--ig-text-primary);
   }
 }
 
 .progress-track {
   width: 100%;
   height: 6px;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--ig-surface-card);
+  border: 1px solid var(--ig-border-light);
   border-radius: var(--ig-radius-full);
   overflow: hidden;
 
@@ -131,33 +134,33 @@
   gap: 8px;
 
   .pause-btn {
-    padding: 5px 14px;
+    padding: 6px 14px;
     font-size: 11px;
     font-weight: 600;
     border-radius: var(--ig-radius-full);
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid var(--ig-border);
-    color: var(--ig-text-primary);
+    background: var(--ig-btn-secondary-bg);
+    border: 1px solid var(--ig-btn-secondary-border);
+    color: var(--ig-btn-secondary-text);
     cursor: pointer;
     transition: all 0.2s ease;
 
     &:hover {
-      background: rgba(255, 255, 255, 0.16);
-      border-color: rgba(255, 255, 255, 0.3);
+      background: var(--ig-surface-hover);
+      border-color: var(--ig-border);
       transform: translateY(-1px);
     }
 
     &.paused {
-      background: rgba(245, 158, 11, 0.2);
+      background: rgba(245, 158, 11, 0.18);
       border-color: rgba(245, 158, 11, 0.5);
-      color: #fbbf24;
+      color: #f59e0b;
       box-shadow: 0 0 12px rgba(245, 158, 11, 0.25);
 
       &:hover {
-        background: rgba(245, 158, 11, 0.3);
+        background: rgba(245, 158, 11, 0.28);
       }
     }
   }
@@ -170,7 +173,7 @@
     color: var(--ig-text-tertiary);
 
     &.note-paused {
-      color: #fbbf24;
+      color: #f59e0b;
     }
   }
 }
@@ -181,13 +184,14 @@
   gap: 8px;
 
   .metric-card {
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--ig-surface-card);
     border: 1px solid var(--ig-border);
     border-radius: var(--ig-radius-md);
     padding: 8px 10px;
     display: flex;
     flex-direction: column;
     gap: 2px;
+    transition: all 0.15s ease;
 
     .label {
       font-size: 10px;
@@ -199,11 +203,12 @@
     .value {
       font-size: 15px;
       font-weight: 700;
+      color: var(--ig-text-primary);
     }
 
     &.highlight {
-      border-color: rgba(220, 39, 67, 0.3);
-      background: rgba(220, 39, 67, 0.06);
+      border-color: rgba(220, 39, 67, 0.35);
+      background: rgba(220, 39, 67, 0.08);
     }
 
     .gradient-text {
@@ -233,6 +238,7 @@
     gap: 8px;
     padding: 10px 16px;
     font-size: 13px;
+    cursor: pointer;
     box-shadow: 0 4px 16px rgba(237, 73, 86, 0.35);
   }
 }

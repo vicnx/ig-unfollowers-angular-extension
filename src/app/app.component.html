@@ -1,6 +1,9 @@
 <div class="extension-app-layout">
-  <!-- Barra superior con marca, búsqueda y controles de cabecera -->
-  <app-header (openSettings)="isSettingsOpen.set(true)" />
+  <!-- Barra superior con marca, controles de cabecera, cambio de tema e información -->
+  <app-header
+    (openSettings)="isSettingsOpen.set(true)"
+    (openWelcome)="isWelcomeOpen.set(true)"
+  />
 
   <!-- Controles de auditoría, barra de progreso y métricas en vivo -->
   <app-scanner-controls />
@@ -61,6 +64,11 @@
   <!-- Modal de ajustes y lista blanca -->
   @if (isSettingsOpen()) {
     <app-settings-modal (close)="isSettingsOpen.set(false)" />
+  }
+
+  <!-- Modal de bienvenida y seguridad -->
+  @if (isWelcomeOpen()) {
+    <app-welcome-modal (close)="isWelcomeOpen.set(false)" />
   }
 
   <!-- Notificaciones emergentes (toasts) -->

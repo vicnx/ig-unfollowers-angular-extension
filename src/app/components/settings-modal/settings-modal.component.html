@@ -2,59 +2,110 @@
   <div class="modal-card" (click)="$event.stopPropagation()">
     <!-- Cabecera del modal -->
     <div class="modal-header">
-      <h3>Ajustes & Lista Blanca</h3>
-      <button class="close-btn" (click)="close.emit()" title="Cerrar ventana de ajustes">✕</button>
+      <div class="header-title-group">
+        <span class="header-icon">⚙️</span>
+        <h3>Ajustes de Seguridad & Lista Blanca</h3>
+      </div>
+      <button class="close-btn" (click)="close.emit()" title="Cerrar ajustes">✕</button>
     </div>
 
     <!-- Cuerpo con opciones de configuración -->
     <div class="modal-body">
-      <!-- SECCIÓN 1: TIEMPOS DE BÚSQUEDA Y PAUSAS ANTI-BANEO -->
+      <!-- SECCIÓN 1: TIEMPOS DE BÚSQUEDA Y PAUSAS ANTI-BANEO (EN SEGUNDOS) -->
       <div class="settings-section">
-        <h4 class="section-title">⏱️ Tiempos de Búsqueda y Pausas Anti-Baneo</h4>
+        <div class="section-title-wrap">
+          <h4 class="section-title">⏱️ Tiempos de Búsqueda y Pausas (Segundos)</h4>
+          <span class="sub-hint">Todos los valores configurados en segundos para mayor comodidad</span>
+        </div>
 
         <div class="form-row">
-          <label>Tiempo entre ciclos de escaneo:</label>
+          <div class="label-group">
+            <label>Tiempo entre ciclos de escaneo:</label>
+            <span class="row-hint">Recomendado: 1 s</span>
+          </div>
           <div class="input-unit">
-            <input type="number" [(ngModel)]="formTimings.timeBetweenSearchCycles" min="500" max="60000" />
-            <span>ms</span>
+            <input
+              type="number"
+              [(ngModel)]="secondsTimings.timeBetweenSearchCycles"
+              min="0.5"
+              max="60"
+              step="0.5"
+            />
+            <span class="unit-label">seg</span>
           </div>
         </div>
 
         <div class="form-row">
-          <label>Pausa larga cada 5 ciclos de escaneo:</label>
+          <div class="label-group">
+            <label>Pausa de seguridad cada 5 ciclos de escaneo:</label>
+            <span class="row-hint">Recomendado: 10 s</span>
+          </div>
           <div class="input-unit">
-            <input type="number" [(ngModel)]="formTimings.timeToWaitAfterFiveSearchCycles" min="4000" max="120000" />
-            <span>ms</span>
+            <input
+              type="number"
+              [(ngModel)]="secondsTimings.timeToWaitAfterFiveSearchCycles"
+              min="2"
+              max="120"
+              step="1"
+            />
+            <span class="unit-label">seg</span>
           </div>
         </div>
 
         <div class="form-row">
-          <label>Tiempo entre cada unfollow:</label>
+          <div class="label-group">
+            <label>Tiempo entre cada unfollow:</label>
+            <span class="row-hint">Recomendado: 4 s</span>
+          </div>
           <div class="input-unit">
-            <input type="number" [(ngModel)]="formTimings.timeBetweenUnfollows" min="2000" max="60000" />
-            <span>ms</span>
+            <input
+              type="number"
+              [(ngModel)]="secondsTimings.timeBetweenUnfollows"
+              min="1"
+              max="60"
+              step="0.5"
+            />
+            <span class="unit-label">seg</span>
           </div>
         </div>
 
         <div class="form-row">
-          <label>Pausa larga cada 5 unfollows:</label>
+          <div class="label-group">
+            <label>Pausa de seguridad cada 5 unfollows:</label>
+            <span class="row-hint">Recomendado: 300 s (5 min)</span>
+          </div>
           <div class="input-unit">
-            <input type="number" [(ngModel)]="formTimings.timeToWaitAfterFiveUnfollows" min="60000" max="900000" />
-            <span>ms</span>
+            <input
+              type="number"
+              [(ngModel)]="secondsTimings.timeToWaitAfterFiveUnfollows"
+              min="10"
+              max="900"
+              step="10"
+            />
+            <span class="unit-label">seg</span>
           </div>
         </div>
 
         <div class="form-row">
-          <label>Usuarios por petición de escaneo:</label>
+          <div class="label-group">
+            <label>Usuarios por petición de escaneo:</label>
+            <span class="row-hint">Entre 10 y 100 cuentas</span>
+          </div>
           <div class="input-unit">
-            <input type="number" [(ngModel)]="formTimings.usersPerSearchCycle" min="10" max="100" />
-            <span>cuentas</span>
+            <input
+              type="number"
+              [(ngModel)]="secondsTimings.usersPerSearchCycle"
+              min="10"
+              max="100"
+              step="5"
+            />
+            <span class="unit-label">cuentas</span>
           </div>
         </div>
 
-        <!-- Aviso de seguridad para no alterar demasiado los tiempos -->
+        <!-- Aviso de seguridad -->
         <div class="warning-banner">
-          ⚠️ <strong>Precaución:</strong> Reducir estos tiempos por debajo de lo recomendado aumenta el riesgo de bloqueo temporal por parte de Meta/Instagram. Se sugiere conservar los valores estándar.
+          🛡️ <strong>Protección de Cuenta:</strong> Los tiempos vienen calibrados de fábrica para imitar la cadencia humana. Reducirlos demasiado puede provocar bloqueos temporales de acción por parte de Instagram.
         </div>
       </div>
 
@@ -68,7 +119,7 @@
         </div>
 
         <p class="section-desc">
-          Exporta tu lista de usuarios protegidos en formato JSON como copia de seguridad o impórtala desde otro dispositivo.
+          Exporta tus cuentas protegidas en un archivo JSON como copia de seguridad o restáuralas en cualquier momento.
         </p>
 
         <!-- Botones de Acción de Lista Blanca -->
@@ -97,11 +148,11 @@
           <span class="mode-label">Modo al importar:</span>
           <label class="radio-label">
             <input type="radio" name="importMode" value="merge" [(ngModel)]="importMode" />
-            Combinar (añadir nuevos)
+            <span>Combinar (añadir nuevos)</span>
           </label>
           <label class="radio-label">
             <input type="radio" name="importMode" value="replace" [(ngModel)]="importMode" />
-            Reemplazar todo
+            <span>Reemplazar todo</span>
           </label>
         </div>
       </div>

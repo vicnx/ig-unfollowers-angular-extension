@@ -1,17 +1,36 @@
-/* Instagram Unfollowers - Design System (Instagram Dark Mode) */
+/* Instagram Unfollowers - Design System (Instagram Theme: Dark & Light Modes) */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-:root {
+:root, [data-theme="dark"] {
   --ig-bg: #000000;
   --ig-surface: #121212;
   --ig-surface-card: #1c1c1e;
   --ig-surface-hover: #262626;
-  --ig-border: rgba(255, 255, 255, 0.12);
+  --ig-border: rgba(255, 255, 255, 0.15);
   --ig-border-light: rgba(255, 255, 255, 0.08);
 
   --ig-text-primary: #f5f5f5;
   --ig-text-secondary: #a8a8a8;
   --ig-text-tertiary: #737373;
+
+  --ig-input-bg: #1a1a1a;
+  --ig-input-border: #363636;
+  --ig-input-focus: #0095f6;
+  --ig-input-placeholder: #737373;
+
+  --ig-header-bg: rgba(18, 18, 18, 0.95);
+  --ig-modal-backdrop: rgba(0, 0, 0, 0.78);
+  --ig-card-shadow: 0 16px 48px rgba(0, 0, 0, 0.65);
+  --ig-btn-secondary-bg: rgba(255, 255, 255, 0.08);
+  --ig-btn-secondary-hover: rgba(255, 255, 255, 0.15);
+  --ig-btn-secondary-text: #f5f5f5;
+  --ig-btn-secondary-border: rgba(255, 255, 255, 0.15);
+
+  --ig-scrollbar-thumb: rgba(255, 255, 255, 0.2);
+  --ig-scrollbar-hover: rgba(255, 255, 255, 0.35);
+
+  --ig-checkbox-bg: rgba(255, 255, 255, 0.05);
+  --ig-checkbox-border: rgba(255, 255, 255, 0.38);
 
   --ig-blue: #0095f6;
   --ig-blue-hover: #1877f2;
@@ -32,6 +51,38 @@
   --ig-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
 }
 
+[data-theme="light"] {
+  --ig-bg: #ffffff;
+  --ig-surface: #ffffff;
+  --ig-surface-card: #fafafa;
+  --ig-surface-hover: #f0f0f0;
+  --ig-border: #dbdbdb;
+  --ig-border-light: #efefef;
+
+  --ig-text-primary: #262626;
+  --ig-text-secondary: #737373;
+  --ig-text-tertiary: #8e8e8e;
+
+  --ig-input-bg: #fafafa;
+  --ig-input-border: #dbdbdb;
+  --ig-input-focus: #0095f6;
+  --ig-input-placeholder: #8e8e8e;
+
+  --ig-header-bg: rgba(255, 255, 255, 0.96);
+  --ig-modal-backdrop: rgba(0, 0, 0, 0.55);
+  --ig-card-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  --ig-btn-secondary-bg: #efefef;
+  --ig-btn-secondary-hover: #e5e5e5;
+  --ig-btn-secondary-text: #262626;
+  --ig-btn-secondary-border: #dbdbdb;
+
+  --ig-scrollbar-thumb: rgba(0, 0, 0, 0.2);
+  --ig-scrollbar-hover: rgba(0, 0, 0, 0.35);
+
+  --ig-checkbox-bg: #fafafa;
+  --ig-checkbox-border: #c7c7c7;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -48,6 +99,7 @@ html, body {
   font-size: 13px;
   line-height: 1.4;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 /* Custom Scrollbar */
@@ -61,12 +113,12 @@ html, body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.18);
+  background: var(--ig-scrollbar-thumb);
   border-radius: var(--ig-radius-full);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--ig-scrollbar-hover);
 }
 
 /* Base interactive elements */
@@ -77,37 +129,52 @@ button {
   cursor: pointer;
   outline: none;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+  cursor: pointer;
 }
 
+/* Instagram-style inputs */
 input[type="text"], input[type="number"] {
   font-family: inherit;
-  background: var(--ig-surface);
-  border: 1px solid var(--ig-border);
+  background: var(--ig-input-bg);
+  border: 1px solid var(--ig-input-border);
   color: var(--ig-text-primary);
   border-radius: var(--ig-radius-md);
   padding: 8px 12px;
   outline: none;
-  transition: border-color 0.2s;
+  font-size: 12px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+
+  &::placeholder {
+    color: var(--ig-input-placeholder);
+  }
 
   &:focus {
-    border-color: var(--ig-blue);
+    border-color: var(--ig-input-focus);
+    box-shadow: 0 0 0 2px rgba(0, 149, 246, 0.15);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 }
 
+/* Instagram-style Custom Checkbox */
 input[type="checkbox"] {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   width: 18px;
   height: 18px;
-  border: 1.5px solid rgba(255, 255, 255, 0.38);
+  border: 1.5px solid var(--ig-checkbox-border);
   border-radius: 4px;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: var(--ig-checkbox-bg);
   cursor: pointer;
   display: inline-block;
   vertical-align: middle;
@@ -115,8 +182,8 @@ input[type="checkbox"] {
   flex-shrink: 0;
 
   &:hover {
-    border-color: rgba(255, 255, 255, 0.8);
-    background-color: rgba(255, 255, 255, 0.1);
+    border-color: var(--ig-blue);
+    background-color: rgba(0, 149, 246, 0.08);
   }
 
   &:checked {
@@ -126,7 +193,7 @@ input[type="checkbox"] {
     background-size: 11px 11px;
     background-position: center;
     background-repeat: no-repeat;
-    box-shadow: 0 0 10px rgba(0, 149, 246, 0.45);
+    box-shadow: 0 0 10px rgba(0, 149, 246, 0.35);
   }
 
   &:focus-visible {
@@ -135,14 +202,15 @@ input[type="checkbox"] {
   }
 }
 
+/* Instagram-style Custom Radio */
 input[type="radio"] {
   appearance: none;
   -webkit-appearance: none;
   width: 16px;
   height: 16px;
-  border: 1.5px solid rgba(255, 255, 255, 0.38);
+  border: 1.5px solid var(--ig-checkbox-border);
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: var(--ig-checkbox-bg);
   cursor: pointer;
   display: inline-block;
   vertical-align: middle;
@@ -150,17 +218,18 @@ input[type="radio"] {
   flex-shrink: 0;
 
   &:hover {
-    border-color: rgba(255, 255, 255, 0.8);
+    border-color: var(--ig-blue);
   }
 
   &:checked {
     border-color: var(--ig-blue);
     background-color: var(--ig-blue);
     background-image: radial-gradient(circle, #ffffff 40%, transparent 45%);
-    box-shadow: 0 0 8px rgba(0, 149, 246, 0.4);
+    box-shadow: 0 0 8px rgba(0, 149, 246, 0.35);
   }
 }
 
+/* Reusable Button Design System */
 .ig-btn-primary {
   background: var(--ig-gradient);
   color: #ffffff;
@@ -172,6 +241,7 @@ input[type="radio"] {
   justify-content: center;
   gap: 8px;
   box-shadow: 0 4px 14px rgba(220, 39, 67, 0.3);
+  cursor: pointer;
 
   &:hover:not(:disabled) {
     opacity: 0.92;
@@ -186,28 +256,37 @@ input[type="radio"] {
   &:disabled {
     opacity: 0.4;
     cursor: not-allowed;
+    pointer-events: none;
   }
 }
 
 .ig-btn-secondary {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid var(--ig-border);
-  color: var(--ig-text-primary);
+  background: var(--ig-btn-secondary-bg);
+  border: 1px solid var(--ig-btn-secondary-border);
+  color: var(--ig-btn-secondary-text);
   font-weight: 500;
   border-radius: var(--ig-radius-md);
   padding: 6px 12px;
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
 
   &:hover:not(:disabled) {
-    background: rgba(255, 255, 255, 0.14);
-    border-color: rgba(255, 255, 255, 0.2);
+    background: var(--ig-btn-secondary-hover);
+    border-color: var(--ig-border);
+    transform: translateY(-1px);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
   }
 
   &:disabled {
     opacity: 0.35;
     cursor: not-allowed;
+    pointer-events: none;
   }
 }
 
@@ -217,8 +296,31 @@ input[type="radio"] {
   font-weight: 600;
   border-radius: var(--ig-radius-md);
   padding: 8px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
 
   &:hover:not(:disabled) {
     background: var(--ig-danger-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(237, 73, 86, 0.35);
   }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+/* Global utility for cursor pointer */
+.clickable, .cursor-pointer {
+  cursor: pointer !important;
 }

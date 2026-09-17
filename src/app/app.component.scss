@@ -48,7 +48,7 @@
 
   h4 {
     font-size: 14px;
-    color: #ffffff;
+    color: var(--ig-text-primary);
   }
 
   p {
@@ -78,7 +78,7 @@
     position: relative;
     width: 80px;
     height: 80px;
-    border: 2px dashed rgba(255, 255, 255, 0.15);
+    border: 2px dashed var(--ig-border);
     border-radius: 50%;
     animation: spin 20s linear infinite;
 
