@@ -1,17 +1,80 @@
-# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+# ==============================================================================
+# 🛡️ GITIGNORE: Seguridad, Secretos y Archivos Privados
+# ==============================================================================
 
-# Compiled output
+# --- 1. CLAVES PRIVADAS Y EMPAQUETADO DE EXTENSIÓN (¡ALTO RIESGO!) ---
+# Claves privadas generadas al empaquetar la extensión en chrome://extensions/
+*.pem
+*.key
+*.cert
+*.crt
+*.pfx
+*.p12
+*.crx
+# Archivos comprimidos de releases generados localmente
+*.zip
+*.tar.gz
+*.tgz
+*.rar
+
+# --- 2. VARIABLES DE ENTORNO Y SECRETOS (¡ALTO RIESGO!) ---
+# Credenciales, tokens de API o variables de entorno locales
+.env
+.env.*
+*.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# --- 3. SESIONES, COOKIES Y EXPORTACIONES DE DATOS DE INSTAGRAM ---
+# Evita subir accidentalmente sesiones, cookies o listados exportados de usuarios
+*session*.json
+*cookie*.json
+*cookies*.txt
+*credential*.json
+*credentials*.json
+*auth*.json
+tokens/
+# Listados de unfollowers o lista blanca descargados por el usuario
+*.csv
+*whitelist_export*.json
+*unfollowers*.json
+
+# --- 4. COMPILADOS Y BUILD ARTIFACTS ---
 /dist
 /tmp
+/temp
 /out-tsc
 /bazel-out
+/.angular/cache
+.sass-cache/
+/coverage
+.eslintcache
 
-# Node
+# --- 5. DEPENDENCIAS DE NODE ---
 /node_modules
-npm-debug.log
-yarn-error.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+/connect.lock
+/libpeerconnection.log
+testem.log
+/typings
 
-# IDEs and editors
+# --- 6. ARCHIVOS DE SISTEMA OPERATIVO ---
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# --- 7. EDITORES Y ENTORNOS DE DESARROLLO (IDEs) ---
 .idea/
 .project
 .classpath
@@ -19,24 +82,21 @@ yarn-error.log
 *.launch
 .settings/
 *.sublime-workspace
+*.sublime-project
+.history/
+*.suo
+*.ntvs*
+*.njsproj
+*.user
+*.useros
+*.sln.docstates
+*.swp
+*.swo
+*~
 
-# Visual Studio Code
+# Visual Studio Code: Preservar únicamente recomendaciones del proyecto
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-.history/*
-
-# Miscellaneous
-/.angular/cache
-.sass-cache/
-/connect.lock
-/coverage
-/libpeerconnection.log
-testem.log
-/typings
-
-# System files
-.DS_Store
-Thumbs.db
