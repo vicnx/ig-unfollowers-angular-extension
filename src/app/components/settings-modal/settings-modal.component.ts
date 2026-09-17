@@ -32,6 +32,93 @@ export class SettingsModalComponent {
 
   importMode: 'merge' | 'replace' = 'merge';
 
+  // ── Presets de Seguridad ────────────────────────────────────────────────────
+
+  /** Definición de los 3 presets disponibles. */
+  readonly presets: TimingPreset[] = [
+    {
+      id: 'safe',
+      label: '🛡️ Seguro',
+      description: 'Máxima protección. Ideal para cuentas nuevas o tras un bloqueo.',
+      timeBetweenUnfollows: 10,
+      timeToWaitAfterFiveUnfollows: 300,
+    },
+    {
+      id: 'balanced',
+      label: '⚖️ Equilibrado',
+      description: 'Velocidad moderada con pausas largas reducidas. Recomendado.',
+      timeBetweenUnfollows: 4,
+      timeToWaitAfterFiveUnfollows: 120,
+    },
+    {
+      id: 'fast',
+      label: '⚡ Rápido',
+      description: 'Mínimo razonable. Solo para cuentas maduras sin bloqueos recientes.',
+      timeBetweenUnfollows: 2,
+      timeToWaitAfterFiveUnfollows: 60,
+    },
+  ];
+
+  /**
+   * Devuelve el ID del preset activo comparando los timings actuales,
+   * o 'custom' si los valores no coinciden con ningún preset.
+   */
+  get activePresetId(): string {
+    for (const p of this.presets) {
+      if (
+        this.secondsTimings.timeBetweenUnfollows === p.timeBetweenUnfollows &&
+        this.secondsTimings.timeToWaitAfterFiveUnfollows === p.timeToWaitAfterFiveUnfollows
+      ) {
+        return p.id;
+      }
+    }
+    return 'custom';
+  }
+
+  /**
+   * Evalúa el nivel de riesgo de ban basado en los valores actuales.
+   * 'safe' | 'warning' | 'danger'
+   */
+  get dangerLevel(): 'safe' | 'warning' | 'danger' {
+    const delay = this.secondsTimings.timeBetweenUnfollows;
+    const longPause = this.secondsTimings.timeToWaitAfterFiveUnfollows;
+
+    if (delay < 2 || longPause < 30) return 'danger';
+    if (delay < 4 || longPause < 60) return 'warning';
+    return 'safe';
+  }
+
+  /** Mensaje descriptivo del nivel de riesgo actual. */
+  get dangerMessage(): string {
+    const delay = this.secondsTimings.timeBetweenUnfollows;
+    const longPause = this.secondsTimings.timeToWaitAfterFiveUnfollows;
+
+    if (delay < 1) {
+      return '🚨 Menos de 1 segundo entre unfollows. Esto disparará el sistema anti-spam de Instagram con casi total seguridad.';
+    }
+    if (delay < 2 && longPause < 30) {
+      return '🚨 Riesgo muy alto de bloqueo de cuenta. Estos valores son demasiado agresivos para cualquier tipo de cuenta.';
+    }
+    if (delay < 2) {
+      return '⚠️ Menos de 2 segundos entre unfollows puede provocar un bloqueo de acción temporal en cuentas con poca antigüedad.';
+    }
+    if (longPause < 30) {
+      return '⚠️ La pausa larga es demasiado corta. Instagram detecta ráfagas sostenidas sin descanso.';
+    }
+    if (delay < 4 || longPause < 60) {
+      return '⚠️ Valores en zona de riesgo moderado. Funcionan en cuentas maduras, pero pueden provocar bloqueos en cuentas nuevas o previamente sancionadas.';
+    }
+    return '🛡️ Configuración dentro de los parámetros seguros. Los tiempos imitan la cadencia humana natural.';
+  }
+
+  /**
+   * Aplica un preset al formulario de tiempos.
+   */
+  applyPreset(preset: TimingPreset): void {
+    this.secondsTimings.timeBetweenUnfollows = preset.timeBetweenUnfollows;
+    this.secondsTimings.timeToWaitAfterFiveUnfollows = preset.timeToWaitAfterFiveUnfollows;
+  }
+
   /**
    * Guarda los nuevos tiempos convirtiendo de segundos a milisegundos internamente.
    */
@@ -114,4 +201,13 @@ export class SettingsModalComponent {
   onExitMockMode(): void {
     this.scanner.setMockMode(false);
   }
+}
+
+/** Modelo de un preset de velocidad de unfollow. */
+interface TimingPreset {
+  id: string;
+  label: string;
+  description: string;
+  timeBetweenUnfollows: number;
+  timeToWaitAfterFiveUnfollows: number;
 }

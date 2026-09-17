@@ -168,14 +168,89 @@
   }
 }
 
-.warning-banner {
-  background: rgba(243, 156, 18, 0.1);
-  border: 1px solid rgba(243, 156, 18, 0.35);
+// ── Fila de presets ─────────────────────────────────────────────────────────
+.presets-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+
+  .preset-btn {
+    padding: 5px 12px;
+    border-radius: var(--ig-radius-full);
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid var(--ig-btn-secondary-border);
+    background: var(--ig-btn-secondary-bg);
+    color: var(--ig-text-secondary);
+    transition: all 0.18s ease;
+    white-space: nowrap;
+
+    &:hover {
+      background: var(--ig-surface-hover);
+      color: var(--ig-text-primary);
+      border-color: var(--ig-border);
+    }
+
+    // Preset Seguro activo
+    &[data-preset='safe'].active {
+      background: rgba(34, 197, 94, 0.15);
+      border-color: rgba(34, 197, 94, 0.5);
+      color: #22c55e;
+    }
+
+    // Preset Equilibrado activo
+    &[data-preset='balanced'].active {
+      background: rgba(0, 149, 246, 0.12);
+      border-color: rgba(0, 149, 246, 0.45);
+      color: var(--ig-blue);
+    }
+
+    // Preset Rápido activo
+    &[data-preset='fast'].active {
+      background: rgba(245, 158, 11, 0.15);
+      border-color: rgba(245, 158, 11, 0.5);
+      color: #f59e0b;
+    }
+  }
+
+  .preset-custom-badge {
+    font-size: 10px;
+    color: var(--ig-text-tertiary);
+    padding: 3px 8px;
+    border-radius: var(--ig-radius-full);
+    border: 1px dashed var(--ig-border);
+    font-style: italic;
+  }
+}
+
+// ── Banner de riesgo dinámico ────────────────────────────────────────────────
+.risk-banner {
   border-radius: var(--ig-radius-md);
   padding: 10px 12px;
   font-size: 11px;
-  color: var(--ig-text-primary);
   line-height: 1.45;
+  transition: all 0.25s ease;
+
+  &.safe {
+    background: rgba(34, 197, 94, 0.08);
+    border: 1px solid rgba(34, 197, 94, 0.35);
+    color: #22c55e;
+  }
+
+  &.warning {
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    color: #f59e0b;
+  }
+
+  &.danger {
+    background: rgba(237, 73, 86, 0.1);
+    border: 1px solid rgba(237, 73, 86, 0.45);
+    color: var(--ig-danger);
+    font-weight: 600;
+  }
 }
 
 .divider {

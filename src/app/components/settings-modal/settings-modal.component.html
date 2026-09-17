@@ -18,6 +18,24 @@
           <span class="sub-hint">Todos los valores configurados en segundos para mayor comodidad</span>
         </div>
 
+        <!-- PRESETS DE VELOCIDAD -->
+        <div class="presets-row">
+          @for (preset of presets; track preset.id) {
+            <button
+              class="preset-btn"
+              [class.active]="activePresetId === preset.id"
+              [attr.data-preset]="preset.id"
+              (click)="applyPreset(preset)"
+              [title]="preset.description"
+            >
+              {{ preset.label }}
+            </button>
+          }
+          @if (activePresetId === 'custom') {
+            <span class="preset-custom-badge">Personalizado</span>
+          }
+        </div>
+
         <div class="form-row">
           <div class="label-group">
             <label>Tiempo entre ciclos de escaneo:</label>
@@ -103,9 +121,9 @@
           </div>
         </div>
 
-        <!-- Aviso de seguridad -->
-        <div class="warning-banner">
-          🛡️ <strong>Protección de Cuenta:</strong> Los tiempos vienen calibrados de fábrica para imitar la cadencia humana. Reducirlos demasiado puede provocar bloqueos temporales de acción por parte de Instagram.
+        <!-- Banner de riesgo dinámico -->
+        <div class="risk-banner" [class]="dangerLevel">
+          {{ dangerMessage }}
         </div>
       </div>
 

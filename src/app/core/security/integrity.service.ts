@@ -22,10 +22,10 @@ export class IntegrityService {
   private readonly _cFull = [14, 44, 45, 49, 43, 70, 85, 18, 119, 54, 33, 47, 58, 44];
 
   private readonly _cLabel = [27, 55, 43, 53, 33, 93, 16, 81, 89, 54, 101, 172, 201, 225, 221, 136, 189, 22, 40, 42, 60];
-  private readonly _cVer = [46, 116, 96, 101, 107, 3];
+  private readonly _cVer = [46, 116, 96, 102, 107, 6];
 
   // Checksum esperado para garantizar que ningún byte fue alterado
-  private readonly _expectedChecksum = 4551;
+  private readonly _expectedChecksum = 4555;
 
   // Estado reactivo de integridad verificado en tiempo de ejecución
   readonly isSystemIntact = signal<boolean>(false);
