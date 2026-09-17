@@ -13,12 +13,6 @@ Una extensión moderna y segura para Google Chrome y navegadores Chromium (Brave
 🌐 **Guía web y documentación visual:** [https://vicnx.github.io/ig-unfollowers-angular-extension/](https://vicnx.github.io/ig-unfollowers-angular-extension/)
 
 <u>¡100% Privada, basada en tu sesión actual de navegador y sin enviar contraseñas a servidores externos!</u>
-
----
-
-> ⚠️ **Nota importante sobre el escaneo y seguridad:**  
-> Debido a las políticas y límites de tasa (rate limits) de la API privada de Instagram, las cuentas no aparecerán instantáneamente en el primer segundo. La herramienta primero sincroniza de forma segura tus seguidos y seguidores para calcular con exactitud la discrepancia. Todos los no-seguidores se presentarán en pantalla una vez completada la recolección. ¡La paciencia garantiza la seguridad de tu cuenta!
-
 ---
 
 ## 🚀 Instalación Rápida (Chrome / Brave / Edge)
